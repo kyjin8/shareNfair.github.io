@@ -42,7 +42,7 @@ function validateId(id) {
     return re.test(id);
 }
 function validatePassword(password) {
-    let re = /^(?=.{8,})(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$/;
+    let re = /^(?=.{5,})(?=.*\d)(?=.*[a-zA-Z])(?!.*\s).*$/;
     return re.test(password);
 }
 $('#selectEmail').change(function(){ 
@@ -95,7 +95,7 @@ $('#form-register').submit(function(e){
         return;
     }
     if (!validateName(name)) {
-        alert("이름이 잘못 되었습니다.")
+        alert("이름이 잘못되었습니다.")
         return;
     }
 
@@ -134,12 +134,12 @@ $('#form-register').submit(function(e){
         return;
     }
     if(!validatePassword(password)){
-        alert('비밀번호는 대문자와 숫자가 포함된 최소 8자 문자열이여야 합니다.');
+        alert('비밀번호는 영문자와 숫자를 혼용한 최소 5자 문자열이어야 합니다.');
         return;
     }
     var confirm = $('#inp-confirm').val();
     if(password !== confirm){
-        alert('비밀번호와 일치하지 않습니다.');
+        alert('비밀번호가 일치하지 않습니다.');
         return;
     }
 
@@ -192,7 +192,8 @@ $('#form-register').submit(function(e){
     
 });
 $('#btn-back').click(function(){
-    document.location.href = 'register.html';
+    // document.location.href = 'register.html';
+    document.location.href = '/signup';
 });
 
 //---------------id중복 체크---------------
