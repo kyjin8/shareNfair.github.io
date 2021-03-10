@@ -89,103 +89,103 @@ function checkid(){
 $('#form-register').submit(function(e){
     e.preventDefault();
 
-    var name = $('#inp-name').val();
-    if(!name){
-        alert("이름을 입력해주세요.")
-        return;
-    }
-    if (!validateName(name)) {
-        alert("이름이 잘못되었습니다.")
-        return;
-    }
+    // var name = $('#inp-name').val();
+    // if(!name){
+    //     alert("이름을 입력해주세요.")
+    //     return;
+    // }
+    // if (!validateName(name)) {
+    //     alert("이름이 잘못되었습니다.")
+    //     return;
+    // }
 
-    var gender = $('input[name="gender"]:checked').val();
-    if(!gender){
-        alert("성별은 필수 체크 사항입니다.")
-        return;
-    }
+    // var gender = $('input[name="gender"]:checked').val();
+    // if(!gender){
+    //     alert("성별은 필수 체크 사항입니다.")
+    //     return;
+    // }
     
-    let birth_year = $('#sel-birth-year').val();
-    let birth_month = $('#sel-birth-month').val();
-    let birth_day = $('#sel-birth-day').val();
-    if(!(birth_year && birth_month && birth_day)){
-        alert("생년월일을 선택해주시기 바랍니다.")
-        return;
-    }
-
-    let id = $('#inp-id').val();
-    if(!id){
-        alert("아이디를 입력해주세요.")
-        return;
-    }
-    // if(!idchecking){
-    //     alert("아이디 중복확인을 해주세요")
-    //     return;
-    // }
-    // console.log(idchecking);
-    // if (!validateId(id)) {
-    //     alert("아이디는 4~12자 문자열이여야 합니다.")
+    // let birth_year = $('#sel-birth-year').val();
+    // let birth_month = $('#sel-birth-month').val();
+    // let birth_day = $('#sel-birth-day').val();
+    // if(!(birth_year && birth_month && birth_day)){
+    //     alert("생년월일을 선택해주시기 바랍니다.")
     //     return;
     // }
 
-    var password = $('#inp-password').val();
-    if(!password){
-        alert("비밀번호를 입력해주세요.")
-        return;
-    }
-    if(!validatePassword(password)){
-        alert('비밀번호는 영문자와 숫자를 혼용한 최소 5자 문자열이어야 합니다.');
-        return;
-    }
-    var confirm = $('#inp-confirm').val();
-    if(password !== confirm){
-        alert('비밀번호가 일치하지 않습니다.');
-        return;
-    }
+    // let id = $('#inp-id').val();
+    // if(!id){
+    //     alert("아이디를 입력해주세요.")
+    //     return;
+    // }
+    // // if(!idchecking){
+    // //     alert("아이디 중복확인을 해주세요")
+    // //     return;
+    // // }
+    // // console.log(idchecking);
+    // // if (!validateId(id)) {
+    // //     alert("아이디는 4~12자 문자열이여야 합니다.")
+    // //     return;
+    // // }
 
-    let addr = $('#sample6_detailAddress').val();
-    if(!addr){
-        alert('주소란을 입력해주세요.');
-        return;
-    }
+    // var password = $('#inp-password').val();
+    // if(!password){
+    //     alert("비밀번호를 입력해주세요.")
+    //     return;
+    // }
+    // if(!validatePassword(password)){
+    //     alert('비밀번호는 영문자와 숫자를 혼용한 최소 5자 문자열이어야 합니다.');
+    //     return;
+    // }
+    // var confirm = $('#inp-confirm').val();
+    // if(password !== confirm){
+    //     alert('비밀번호가 일치하지 않습니다.');
+    //     return;
+    // }
 
-    var email1 = $('#inp-email01').val();
-    if(!email1){
-        alert("이메일을 입력해주세요.")
-        return;
-    }
-    if (!validateId(email1)) {
-        alert("이메일이 잘못된 형식입니다.")
-        return;
-    }
-    var email2 = $('#inp-email02').val();
-    if(!email2){
-        alert("이메일을 입력해주세요.")
-        return;
-    }
-    if (!validateEmail2(email2)) {
-        alert("이메일이 잘못된 형식입니다.")
-        return;
-    }
+    // let addr = $('#sample6_detailAddress').val();
+    // if(!addr){
+    //     alert('주소란을 입력해주세요.');
+    //     return;
+    // }
 
-    var tel1 = $('#inp-tel1').val();
-    if(!tel1){
-        alert("핸드폰 번호를 입력해주세요.")
-        return;
-    }
-    if (!validateTel(tel1)) {
-        alert("잘못된 번호입니다.")
-        return;
-    }
-    var tel2 = $('#inp-tel2').val();
-    if(!tel2){
-        alert("핸드폰 번호를 입력해주세요.")
-        return;
-    }
-    if (!validateTel(tel2)) {
-        alert("잘못된 번호입니다.")
-        return;
-    }
+    // var email1 = $('#inp-email01').val();
+    // if(!email1){
+    //     alert("이메일을 입력해주세요.")
+    //     return;
+    // }
+    // if (!validateId(email1)) {
+    //     alert("이메일이 잘못된 형식입니다.")
+    //     return;
+    // }
+    // var email2 = $('#inp-email02').val();
+    // if(!email2){
+    //     alert("이메일을 입력해주세요.")
+    //     return;
+    // }
+    // if (!validateEmail2(email2)) {
+    //     alert("이메일이 잘못된 형식입니다.")
+    //     return;
+    // }
+
+    // var tel1 = $('#inp-tel1').val();
+    // if(!tel1){
+    //     alert("핸드폰 번호를 입력해주세요.")
+    //     return;
+    // }
+    // if (!validateTel(tel1)) {
+    //     alert("잘못된 번호입니다.")
+    //     return;
+    // }
+    // var tel2 = $('#inp-tel2').val();
+    // if(!tel2){
+    //     alert("핸드폰 번호를 입력해주세요.")
+    //     return;
+    // }
+    // if (!validateTel(tel2)) {
+    //     alert("잘못된 번호입니다.")
+    //     return;
+    // }
 
     $(this).unbind('submit').submit()
     //submit(email,password,gender,birth);

@@ -1,13 +1,16 @@
 var createError = require('http-errors');
-var express = require('express');
+const express = require('express');
+const session = require('express-session');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const url = require('url');
 const mime = require('mime');
+const ejs = require('ejs');
 
 var indexRouter = require('./routes/index');
 var loginRouter = require('./routes/login');
+var logoutRouter = require('./routes/logout');
 var signupRouter = require('./routes/signup');
 var usersRouter = require('./routes/users');
 
