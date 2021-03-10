@@ -4,21 +4,13 @@ const fs = require('fs');
 const ejs = require('ejs');
 const path = require('path');
 const session = require('./session');
-const mysql = require('mysql2');
+const client = require('./mysql');
 const bodyParser = require('body-parser');
 const crypto = require('crypto');
 const { route } = require('.');
 
 router.use(session)
 
-const client = mysql.createConnection({
-    user:'blockchain',
-    password:'Qmffhrcpdls1!',
-    database:'kyjin8',
-    port: 3307
-});
-
-client.query('use kyjin8')
 
 router.get('/', function(req, res, next) {
     fs.readFile(path.dirname(__dirname)+'/views/login.ejs','utf-8', (err, data) => {
@@ -28,7 +20,7 @@ router.get('/', function(req, res, next) {
 router.post('/', (req, res, next) => {
     const body = req.body;
     fs.readFile(path.dirname(__dirname)+'/views/login.ejs','utf-8', (err, data) => {
-        client.query('SELECT * FROM users where userId = ?', [body.id],
+        client.query('SELECT * FROM users where userid = ?', [body.id],
         (err,results) => {
             if(results != '') {
                 console.log('req.session', req.session)
