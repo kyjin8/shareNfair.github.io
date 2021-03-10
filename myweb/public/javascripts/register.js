@@ -74,11 +74,11 @@ function checkid(){
     let id = $('#inp-id').val();
     if(id){
         if (!validateId(id)) {
-            alert("아이디는 4~12자 문자열이여야 합니다.")
+            alert("아이디는 4~12자 문자열이어야 합니다.")
             return;
         }
-        url = "checkid.php?id="+id;
-        window.open(url,"chkid","width=300,height=100");
+        // url = "checkid.php?id="+id;
+        // window.open(url,"chkid","width=300,height=100");
         return;
     }
     //idchecking = true;
@@ -196,21 +196,6 @@ $('#btn-back').click(function(){
     document.location.href = '/signup';
 });
 
-//---------------id중복 체크---------------
-// function checkid(){
-//     let id = $('#inp-id').val();
-//     if(id){
-//         if (!validateId(id)) {
-//             alert("아이디는 4~12자 문자열이여야 합니다.")
-//             return;
-//         }
-//         url = "checkid.php?id="+id;
-//         window.open(url,"chkid","width=300,height=100");
-//         return;
-//     }
-//     idchecking = true;
-// };
-// console.log(idchecking);
 //-----------주소 API-------------
 function sample6_execDaumPostcode() {
     new daum.Postcode({
