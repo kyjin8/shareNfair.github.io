@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>로그인 : SHARE & FAIR</title>
+    <script src="https://kit.fontawesome.com/51db22a717.js" crossorigin="anonymous"></script>
+    <link rel='stylesheet' href='/stylesheets/loginstyle.css' />
+</head>
+<body>
+    <div class="main-container">
+        <div class="main-wrap">
+            <header>
+                <div class="logo-wrap">
+                    <img src="/images/logo_icon_transparent.png">
+                    <img src="/images/logo_letter_transparent.png">
+                </div>
+            </header>
+            <section class="login-input-section-wrap">
+                <form action="/login" method="POST">
+                    <div class="login-input-wrap">
+                        <input name="id" placeholder="아이디" type="text" id="id" required></input>
+                    </div>
+                    <div class="login-input-wrap password-wrap">
+                        <input name="pwd" placeholder="비밀번호" type="password" id="pwd" required></input>
+                    </div>
+                    <div class="login-button-wrap">
+                        <button type="submit">로그인</button>
+                    </div>
+                    <div class="login-stay-sign-in">
+                        <i class="far fa-check-circle"></i>
+                        <span>로그인 유지</span>
+                    </div>
+                </form>
+            </section>
+            <section class="Easy-sign-in-wrap">
+                <h2>간편 로그인</h2>
+                <ul class="sign-button-list">
+                    <li><button><i class="fas fa-qrcode"></i><span>QR code로 로그인</span></button></li>
+                    <li><button><i class="fab fa-facebook-square"></i><span>Facebook</span></button></li>
+                    <li><button><i class="fab fa-line"></i><span>line</span></button></li>
+                </ul>
+                <!-- <p class="forget-msg">아이디나 비밀번호를 잊어버리셨나요? | 회원가입</p> -->
+                <a href="/signup">회원가입</a>
+            </section>
+        </div>
+    </div>
+</body>
+</html>
