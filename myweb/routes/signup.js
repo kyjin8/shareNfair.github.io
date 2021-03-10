@@ -1,5 +1,15 @@
 var express = require('express');
 var router = express.Router();
+const mysql = require('mysql2');
+
+const client = mysql.createConnection({
+  user:'root',
+  password:'1234',
+  database:'member',
+  port: 3307
+});
+
+client.query('use member')
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
