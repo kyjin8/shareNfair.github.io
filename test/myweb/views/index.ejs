@@ -30,9 +30,9 @@
               <li><a href="#contact" class="scroll"><span data-hover="정보">정보</span></a></li>
               <% if (login == undefined) { %>
                 <li><a href="/login" class="scroll"><span data-hover="로그인">로그인</span></a></li>
-                <% } else { %>
-                  <li><a href="/logout" class="scroll"><span data-hover="로그아웃">로그아웃</span></a></li>
-                  <% } %>
+              <% } else { %>
+                <li><a href="/logout" class="scroll"><span data-hover="로그아웃">로그아웃</span></a></li>
+              <% } %>
             </nav>
           </ul>
         </div>
@@ -87,40 +87,25 @@
   <div class="posts">
     <h1>중고거래 인기매물</h1>
     <div class="posts-wrapper">
-      <div class="post">
-        <a href="#"><img src="/images/sample_img1.jpg"></a>
-
-      </div>
-      <div class="post">
-        <a href="#"><img src="/images/sample_img1.jpg"></a>
-
-      </div>
-      <div class="post">
-        <a href="#"><img src="/images/sample_img1.jpg"></a>
-
-      </div>
-      <div class="post">
-        <a href="#"><img src="/images/sample_img1.jpg"></a>
-
-      </div>
-      <div class="post">
-        <a href="#"><img src="/images/sample_img1.jpg"></a>
-
-      </div>
-      <div class="post">
-        <a href="#"><img src="/images/sample_img1.jpg"></a>
-
-      </div>
-      <div class="post">
-        <a href="#"><img src="/images/sample_img1.jpg"></a>
-
-      </div>
-      <div class="post">
-        <a href="#"><img src="/images/sample_img1.jpg"></a>
-
-      </div>
+      <% posts.forEach((item, index) => { %>
+        <div class="post">
+          <a href="#"><img src="<%= item.img %>"></a>
+          <div class="post_title">
+            <%= item.title %>
+          </div>
+          <div class="post_price">
+            <p><b><%= item.price %> 원</b></p>
+          </div>
+        </div>
+      <% }) %>
     </div>
   </div>
+  <% if (login != undefined) { %>
+  <div class="create_post">
+    <a href="#"><div class="button">
+      <img src="/images/create_post.png">
+    </div></a>
+  </div>
+  <% } %>
 </body>
-
 </html>
