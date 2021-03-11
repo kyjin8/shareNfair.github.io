@@ -1,16 +1,6 @@
 var express = require('express');
 var router = express.Router();
-const mysql = require('mysql2');
-
-const client = mysql.createConnection({
-  user:'root',
-  password:'1234',
-  database:'member',
-  port: 3307
-});
-
-
-
+const client = require('./mysql');
 
 /* GET home page. */
 router.get('/', (req, res) => { 
@@ -18,7 +8,6 @@ router.get('/', (req, res) => {
 });
 router.post('/', (req, res, next) => {
   const body = req.body;
-  client.query('use member')
   client.query('insert into users(userid, userpwd, username) values(?, ?, ?)', [body.id, body.pwd, body.name], () => {
       console.log(body.id, body.pwd);
     }

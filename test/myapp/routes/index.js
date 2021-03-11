@@ -6,9 +6,10 @@ const fs = require('fs')
 const path = require('path')
 
 router.use(session)
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index',{data:req.session.userid})
+  res.render('index', {login: req.session.userid})
 });
 
 module.exports = router;

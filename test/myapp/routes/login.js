@@ -4,21 +4,12 @@ const fs = require('fs');
 const ejs = require('ejs');
 const path = require('path');
 const session = require('./session');
-const mysql = require('mysql2');
+const client = require('./mysql');
 const bodyParser = require('body-parser');
 const crypto = require('crypto');
 const { route } = require('.');
 
 router.use(session)
-
-const client = mysql.createConnection({
-    user:'root',
-    password:'1234',
-    database:'member',
-    port: 3307
-});
-
-client.query('use member')
 
 router.get('/', function(req, res, next) {
     fs.readFile(path.dirname(__dirname)+'/views/login.ejs','utf-8', (err, data) => {
@@ -35,12 +26,12 @@ router.post('/', (req, res, next) => {
             if(results != '') {
                 console.log('req.session', req.session)
                 if(body.pwd == results[0].userpwd){
-                    // console.log(body.pwd);
-                    // console.log(results[0].userpwd);
                     req.session.logined = true;
                     req.session.userid = body.id;
                     res.redirect("/");
                 } else {
+                    console.log(body.pwd);
+                    console.log(results[0].userpwd);
                     res.send('<script>alert("아이디 혹은 비밀번호가 틀렸습니다.");history.back();</script>')
                 }
             } else {
