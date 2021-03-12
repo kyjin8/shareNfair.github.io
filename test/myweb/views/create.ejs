@@ -5,34 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>글쓰기 : SHARE & FAIR</title>
     <link rel="stylesheet" href="/stylesheets/bootstrap.css">
+    <link rel="stylesheet" href="/stylesheets/header.css">
     <link rel="stylesheet" href="/stylesheets/crudstyle.css">
 </head>
 <body>
-    <div class="header" id="head">
-        <div class="container">
-            <div class="header-top">
-                <div class="logo">
-                    <a href="/"><img src="/images/logo_letter_transparent.png" /></a>
-                </div>
-                <div class="top-menu">
-                    <span class="menu"> </span>
-                    <ul>
-                        <nav class="cl-effect-5">
-                            <li><a class="active" href="/"><span data-hover="메인">메인</span></a></li>
-                            <li><a href="#products" class="scroll"><span data-hover="판매글"><span>판매글</span></a></li>
-                            <li><a href="#notice" class="scroll"><span data-hover="알림">알림</span></a></li>
-                            <li><a href="#contact" class="scroll"><span data-hover="정보">정보</span></a></li>
-                            <% if (login == undefined) { %>
-                                <li><a href="/login" class="scroll"><span data-hover="로그인">로그인</span></a></li>
-                            <% } else { %>
-                                <li><a href="/logout" class="scroll"><span data-hover="로그아웃">로그아웃</span></a></li>
-                            <% } %>
-                        </nav>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
+    <header>
+        <% include header.ejs%>
+    </header>
     <div class="create_box">
         <h2>거래글 작성</h2>
         <form action="/create" method="POST" enctype="multipart/form-data">
@@ -40,7 +19,7 @@
             <hr>
             <p><div class="small_title title_text">제목</div><input class="small_context title_box" type="text" name="title" placeholder="제목" autocomplete="off"></p>
             <hr>
-            <p><div class="small_title price">가격</div><input class="small_context price_box" type="text" name="price" placeholder="￦ 가격을 입력하세요." autocomplete="off"></p>
+            <p><div class="small_title price">가격</div><input class="small_context price_box" type="number" name="price" placeholder="￦ 가격을 입력하세요." autocomplete="off"></p>
             <hr>
             <p><div class="small_title desc_text">내용</div><textarea class="small_context description_box" name="description" placeholder="게시글 내용을 작성해주세요." autocomplete="off"></textarea></p>
             <hr>

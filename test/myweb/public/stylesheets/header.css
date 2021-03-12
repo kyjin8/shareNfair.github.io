@@ -1,0 +1,85 @@
+.header{
+    background-color: black;
+    min-height: 80px;
+}
+.header-top {
+	padding-top: 2em;
+}
+.logo{
+	float:left;
+}
+.logo img{
+    width: 250px;
+}
+@media (max-width: 768px) {
+    .logo img{
+        width: 200px;
+    }
+}
+.top-menu{
+	float:right;
+}
+.top-menu ul li{
+	display: inline-block;
+	padding: 5px 15px 0px 15px;
+}
+.top-menu ul li a{
+	font-size: 1.1em;
+	color: #fff;
+	text-decoration: none;
+	text-transform: uppercase;
+}
+.top-menu ul li a:hover {
+	color: #ef664d;
+}
+.top-menu ul li a.active {
+	color: #ef664d;
+	font-weight: 600;
+}
+nav a {
+	position: relative;
+	display: inline-block;
+	outline: none;
+	color: #fff;
+	text-decoration: none;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+	font-weight: 400;
+	text-shadow: 0 0 1px rgba(255,255,255,0.3);
+	font-size: 1.35em;
+}
+
+nav a:hover,
+nav a:focus {
+	outline: none;
+}
+
+/* Effect 5: same word slide in */
+.cl-effect-5 a {
+	overflow: hidden;
+}
+
+.cl-effect-5 a span {
+	position: relative;
+	display: inline-block;
+	-webkit-transition: -webkit-transform 0.3s;
+	-moz-transition: -moz-transform 0.3s;
+	transition: transform 0.3s;
+}
+
+.cl-effect-5 a span::before {
+	position: absolute;
+	top: 100%;
+	content: attr(data-hover);
+	font-weight: 700;
+	-webkit-transform: translate3d(0,0,0);
+	-moz-transform: translate3d(0,0,0);
+	transform: translate3d(0,0,0);
+}
+
+.cl-effect-5 a:hover span,
+.cl-effect-5 a:focus span {
+	-webkit-transform: translateY(-100%);
+	-moz-transform: translateY(-100%);
+	transform: translateY(-100%);
+}

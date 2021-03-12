@@ -5,44 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>글쓰기 : SHARE & FAIR</title>
     <link rel="stylesheet" href="/stylesheets/bootstrap.css">
+    <link rel="stylesheet" href="/stylesheets/header.css">
     <link rel="stylesheet" href="/stylesheets/productsstyle.css">
 </head>
 <body>
-    <div class="header" id="head">
-        <div class="container">
-            <div class="header-top">
-                <div class="logo">
-                    <a href="/"><img src="/images/logo_letter_transparent.png" /></a>
-                </div>
-                <div class="top-menu">
-                    <span class="menu"> </span>
-                    <ul>
-                        <nav class="cl-effect-5">
-                            <li><a class="active" href="/"><span data-hover="메인">메인</span></a></li>
-                            <li><a href="#products" class="scroll"><span data-hover="판매글"><span>판매글</span></a></li>
-                            <li><a href="#notice" class="scroll"><span data-hover="알림">알림</span></a></li>
-                            <li><a href="#contact" class="scroll"><span data-hover="정보">정보</span></a></li>
-                            <% if (login == undefined) { %>
-                                <li><a href="/login" class="scroll"><span data-hover="로그인">로그인</span></a></li>
-                            <% } else { %>
-                                <li><a href="/logout" class="scroll"><span data-hover="로그아웃">로그아웃</span></a></li>
-                            <% } %>
-                        </nav>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
+    <header>
+        <% include header.ejs %>
+    </header>
     <div class="products_box">
         <% posts.forEach((item, index) => { %>
             <div class="product">
-                <a href="/products/<%=item.id %>"><img src="/images/uploaded/<%= item.img %>"></a>
+                <a href="/products/<%=item.id %>"></a><img src="/images/uploaded/<%= item.img %>"></a>
                 <div class="product_text_wrapper">
                     <div class="product_text product_title">
                         <%= item.title %>
                     </div>
                     <div class="product_text product_price">
-                        <p><b><%= item.price %> 원</b></p>
+                        <p><b><%= item.price.toLocaleString() %> 원</b></p>
                     </div>
                     <div class="product_text product_created">
                         <p><%= item.created.toString().substring(0,15) %></p>

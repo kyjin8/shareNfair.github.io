@@ -11,6 +11,8 @@
   <script src="/javascripts/jquery.min.js"></script>
   <script type="text/javascript" src="/javascripts/move-top.js"></script>
   <script type="text/javascript" src="/javascripts/easing.js"></script>
+  <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script> -->
+  <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/locale/ko.js"></script> -->
 </head>
 
 <body>
@@ -94,10 +96,11 @@
             <%= item.title %>
           </div>
           <div class="post_text post_price">
-            <p><b><%= item.price %> 원</b></p>
+            <p><b><%= item.price.toLocaleString() %> 원</b></p>
           </div>
           <div class="post_text post_created">
-            <p><%= item.created.toString().substring(0,15) %></p>
+            <% moment.locale('ko') %>
+            <p><%= moment(item.created).startOf('sec').fromNow() %></p>
           </div>
         </div>
       <% }) %>
