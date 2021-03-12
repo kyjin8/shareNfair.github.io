@@ -4,6 +4,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>글쓰기 : SHARE & FAIR</title>
+    <link rel="stylesheet" href="/stylesheets/bootstrap.css">
+    <link rel="stylesheet" href="/stylesheets/crudstyle.css">
 </head>
 <body>
     <div class="header" id="head">
@@ -28,18 +30,22 @@
                         </nav>
                     </ul>
                 </div>
-                <div class="create-box">
-                    <h2>거래글 작성</h2>
-                    <form action="/process_create" method="POST" enctype="multipart/form-data">
-                        <p><input type="file" name="uploadfile" class="uploadfile" value="" /></p>
-                        <p><div class="title_text">제목</div><input class="title_box" type="text" name="title" placeholder="제목" autocomplete="off"></p>
-                        <p><div class="title_text">가격</div><input class="title_box" type="text" name="title" placeholder="가격" autocomplete="off"></p>
-                        <p><div class="desc_text">내용</div><textarea class="description_box" name="description" placeholder="게시글 내용을 작성해주세요." autocomplete="off"></textarea></p>
-                        <p><input class="submit_btn" type="submit"></p>
-                    </form>
-                </div>
             </div>
         </div>
+    </div>
+    <div class="create_box">
+        <h2>거래글 작성</h2>
+        <form action="/create" method="POST" enctype="multipart/form-data">
+            <p><input type="file" name="uploadfile" class="uploadfile" value="" /></p>
+            <hr>
+            <p><div class="small_title title_text">제목</div><input class="small_context title_box" type="text" name="title" placeholder="제목" autocomplete="off"></p>
+            <hr>
+            <p><div class="small_title price">가격</div><input class="small_context price_box" type="text" name="price" placeholder="￦ 가격을 입력하세요." autocomplete="off"></p>
+            <hr>
+            <p><div class="small_title desc_text">내용</div><textarea class="small_context description_box" name="description" placeholder="게시글 내용을 작성해주세요." autocomplete="off"></textarea></p>
+            <hr>
+            <p><input class="submit_btn" type="submit" value="완료"></p>
+        </form>
     </div>
 </body>
 </html>

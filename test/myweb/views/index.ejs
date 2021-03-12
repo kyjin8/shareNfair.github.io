@@ -25,7 +25,7 @@
           <ul>
             <nav class="cl-effect-5">
               <li><a class="active" href="/"><span data-hover="메인">메인</span></a></li>
-              <li><a href="#products" class="scroll"><span data-hover="판매글"><span>판매글</span></a></li>
+              <li><a href="/products" class="scroll"><span data-hover="판매글"><span>판매글</span></a></li>
               <li><a href="#notice" class="scroll"><span data-hover="알림">알림</span></a></li>
               <li><a href="#contact" class="scroll"><span data-hover="정보">정보</span></a></li>
               <% if (login == undefined) { %>
@@ -84,17 +84,20 @@
       </div>
     </div>
   </div>
-  <div class="posts">
+  <div class="posts_box">
     <h1>중고거래 인기매물</h1>
-    <div class="posts-wrapper">
+    <div class="posts_wrapper">
       <% posts.forEach((item, index) => { %>
         <div class="post">
-          <a href="#"><img src="<%= item.img %>"></a>
-          <div class="post_title">
+          <a href="#"><img src="/images/uploaded/<%= item.img %>"></a>
+          <div class="post_text post_title">
             <%= item.title %>
           </div>
-          <div class="post_price">
+          <div class="post_text post_price">
             <p><b><%= item.price %> 원</b></p>
+          </div>
+          <div class="post_text post_created">
+            <p><%= item.created.toString().substring(0,15) %></p>
           </div>
         </div>
       <% }) %>
@@ -102,7 +105,7 @@
   </div>
   <% if (login != undefined) { %>
   <div class="create_post">
-    <a href="#"><div class="button">
+    <a href="/create"><div class="button">
       <img src="/images/create_post.png">
     </div></a>
   </div>
