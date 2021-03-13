@@ -17,14 +17,23 @@
     margin-top: 5vh;
 }
 .product_text{
-    margin-bottom: 1vh;
     text-align: left;
 }
 .product_title, .product_price{
     font-size: 20px;
 }
 .product_created{
-    margin-bottom: 3vh;
     font-size: 85%;
     color: gray;
+}
+.product_description{
+    white-space: pre;
+    line-height: 2;
+}
+.product_description p{
+    margin: 0;
+    transform: translateY(-50%);
+}
+.product_price{
+    transform: translateY(-200%);
 }

@@ -11,8 +11,6 @@
   <script src="/javascripts/jquery.min.js"></script>
   <script type="text/javascript" src="/javascripts/move-top.js"></script>
   <script type="text/javascript" src="/javascripts/easing.js"></script>
-  <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script> -->
-  <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/locale/ko.js"></script> -->
 </head>
 
 <body>
@@ -27,10 +25,10 @@
           <ul>
             <nav class="cl-effect-5">
               <li><a class="active" href="/"><span data-hover="메인">메인</span></a></li>
-              <li><a href="/products" class="scroll"><span data-hover="판매글"><span>판매글</span></a></li>
+              <li><a href="/board" class="scroll"><span data-hover="판매글"><span>판매글</span></a></li>
               <li><a href="#notice" class="scroll"><span data-hover="알림">알림</span></a></li>
               <li><a href="#contact" class="scroll"><span data-hover="정보">정보</span></a></li>
-              <% if (login == undefined) { %>
+              <% if (!logined) { %>
                 <li><a href="/login" class="scroll"><span data-hover="로그인">로그인</span></a></li>
               <% } else { %>
                 <li><a href="/logout" class="scroll"><span data-hover="로그아웃">로그아웃</span></a></li>
@@ -90,25 +88,27 @@
     <h1>중고거래 인기매물</h1>
     <div class="posts_wrapper">
       <% posts.forEach((item, index) => { %>
-        <div class="post">
-          <a href="#"><img src="/images/uploaded/<%= item.img %>"></a>
-          <div class="post_text post_title">
-            <%= item.title %>
+        <a href="/board/<%=item.id %>">
+          <div class="post">
+            <img src="/images/uploaded/<%= item.img %>">
+            <div class="post_text post_title">
+              <%= item.title %>
+            </div>
+            <div class="post_text post_price">
+              <p><b><%= item.price.toLocaleString() %> 원</b></p>
+            </div>
+            <div class="post_text post_created">
+              <% moment.locale('ko') %>
+              <p><%= moment(item.created).startOf('sec').fromNow() %></p>
+            </div>
           </div>
-          <div class="post_text post_price">
-            <p><b><%= item.price.toLocaleString() %> 원</b></p>
-          </div>
-          <div class="post_text post_created">
-            <% moment.locale('ko') %>
-            <p><%= moment(item.created).startOf('sec').fromNow() %></p>
-          </div>
-        </div>
+        </a>
       <% }) %>
     </div>
   </div>
-  <% if (login != undefined) { %>
+  <% if (logined) { %>
   <div class="create_post">
-    <a href="/create"><div class="button">
+    <a href="/board/create"><div class="button">
       <img src="/images/create_post.png">
     </div></a>
   </div>

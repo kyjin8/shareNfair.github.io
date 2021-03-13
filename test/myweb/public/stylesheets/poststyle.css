@@ -43,13 +43,13 @@
     font-size: 85%;
     color: gray;
 }
+/* 글쓰기 버튼 */
 .create_post {
     position: fixed;
     right: 0;
     bottom: 0;
     padding: 3%;
 }
-
 .create_post .button{
     width: 80px;
     height: 80px;

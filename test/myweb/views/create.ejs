@@ -10,18 +10,18 @@
 </head>
 <body>
     <header>
-        <% include header.ejs%>
+        <% include header.ejs %>
     </header>
-    <div class="create_box">
+    <div class="cu_box">
         <h2>거래글 작성</h2>
-        <form action="/create" method="POST" enctype="multipart/form-data">
-            <p><input type="file" name="uploadfile" class="uploadfile" value="" /></p>
+        <form action="/board/create" method="POST" enctype="multipart/form-data">
+            <p><input type="file" name="uploadfile" class="uploadfile" value="" required/></p>
             <hr>
-            <p><div class="small_title title_text">제목</div><input class="small_context title_box" type="text" name="title" placeholder="제목" autocomplete="off"></p>
+            <p><div class="small_title title_text">제목</div><input class="small_context title_box" type="text" name="title" placeholder="제목" autocomplete="off" required></p>
             <hr>
-            <p><div class="small_title price">가격</div><input class="small_context price_box" type="number" name="price" placeholder="￦ 가격을 입력하세요." autocomplete="off"></p>
+            <p><div class="small_title price">가격</div><input class="small_context price_box" type="number" name="price" placeholder="￦ 가격을 입력하세요." autocomplete="off" required></p>
             <hr>
-            <p><div class="small_title desc_text">내용</div><textarea class="small_context description_box" name="description" placeholder="게시글 내용을 작성해주세요." autocomplete="off"></textarea></p>
+            <p><div class="small_title desc_text">내용</div><textarea class="small_context description_box" name="description" placeholder="게시글 내용을 작성해주세요." autocomplete="off" required></textarea></p>
             <hr>
             <p><input class="submit_btn" type="submit" value="완료"></p>
         </form>

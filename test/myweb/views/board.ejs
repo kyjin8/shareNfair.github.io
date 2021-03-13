@@ -1,0 +1,44 @@
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SHARE & FAIR</title>
+    <link rel="stylesheet" href="/stylesheets/bootstrap.css">
+    <link rel="stylesheet" href="/stylesheets/header.css">
+    <link rel="stylesheet" href="/stylesheets/productsstyle.css">
+</head>
+<body>
+    <header>
+        <% include header.ejs %>
+    </header>
+    <div class="products_box">
+        <% posts.forEach((item, index) => { %>
+            <div class="product">
+                <a href="/board/<%= item.id %>"><img src="/images/uploaded/<%= item.img %>"></a>
+                    <div class="product_text_wrapper">
+                        <div class="product_text product_title">
+                            <%= item.title %>
+                        </div>
+                        <div class="product_text product_price">
+                            <p><b><%= item.price.toLocaleString() %> 원</b></p>
+                        </div>
+                        <div class="product_text product_created">
+                            <% moment.locale('ko') %>
+                            <p><%= moment(item.created).startOf('sec').fromNow() %></p>
+                        </div>
+                    </div>
+                </a>
+                <hr>
+            </div>
+        <% }) %>
+    </div>
+    <% if (logined) { %>
+        <div class="create_post">
+          <a href="/board/create"><div class="button">
+            <img src="/images/create_post.png">
+          </div></a>
+        </div>
+    <% } %>
+</body>
+</html>

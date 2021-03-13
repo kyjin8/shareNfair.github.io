@@ -20,15 +20,20 @@
                     <p><b><%= posts[0].title %></b></p>
                 </div>
                 <div class="product_text product_created">
-                    <% console.log('created', posts[0].created) %>
-                    <p><%= posts[0].created.toString().substring(0,15) %></p>
+                    <% moment.locale('ko') %>
+                    <p><%= moment(posts[0].created).startOf('sec').fromNow() %></p>
                 </div>
                 <div class="product_text product_description">
                     <p><%= posts[0].description %></p>
                 </div>
                 <div class="product_text product_price">
                     <p><b><%= posts[0].price.toLocaleString() %> 원</b></p>
-                </div>
+                </div>                
+                <% if (login == posts[0].user_id) { %>
+                    <div class="update_post">
+                        <a href="/board/update/<%= posts[0].id %>"><button>수정</button></a>
+                    </div>
+                <% } %>
             </div>
         </div>
     </div>

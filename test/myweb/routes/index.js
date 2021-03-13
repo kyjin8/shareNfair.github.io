@@ -8,8 +8,8 @@ router.use(session)
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  client.query('select * from posts ORDER BY id', (err, results) => {
-    res.render('index', {login: req.session.userid, posts: results, moment: moment})
+  client.query('select * from posts ORDER BY id LIMIT 12', (err, results) => {
+    res.render('index', {logined: req.session.logined, posts: results, moment: moment})
   })
 });
 

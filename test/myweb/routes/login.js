@@ -28,7 +28,8 @@ router.post('/', (req, res, next) => {
                 if(body.pwd == results[0].userpwd){
                     req.session.logined = true;
                     req.session.userid = body.id;
-                    res.redirect("/");
+                    res.redirect('/');
+                    // res.send('<script>history.go(-2);</script>')
                 } else {
                     console.log(body.pwd);
                     console.log(results[0].userpwd);

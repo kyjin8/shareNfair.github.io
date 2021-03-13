@@ -13,6 +13,7 @@ html {
   body {
     margin: 0;
     overflow-y:scroll;
+    word-break: keep-all;
   }
   /* 스크롤바 */
   body::-webkit-scrollbar {
