@@ -6,6 +6,7 @@ const { route } = require('./session');
 const moment = require('moment');
 const path = require('path');
 const multer = require('multer');
+const fs = require('fs');
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -68,8 +69,13 @@ router.get('/delete/:id', (req, res) => {
         res.send('<script>location.href="/login"</script>');
     }
     client.query('SELECT * FROM posts WHERE id=?', [req.params.id], (err, results) => {
-        if(req.session.userid == results[0].user_id){
+        const posts = results[0];
+        console.log('아이디비교', req.session.userid, posts.user_id);
+        if(req.session.userid == posts.user_id){
             client.query('DELETE FROM posts WHERE user_id=? AND id=?', [req.session.userid, req.params.id], (err, results) =>{
+                fs.unlink(path.dirname(__dirname) + '/public/images/uploaded/' + posts.img, (err) => {
+                    console.error(err);
+                });
                 res.send('<script>alert("삭제되었습니다."); location.href="/board"</script>');
             })
         } else {
