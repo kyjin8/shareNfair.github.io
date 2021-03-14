@@ -6,7 +6,7 @@
     <title>글쓰기 : SHARE & FAIR</title>
     <link rel="stylesheet" href="/stylesheets/bootstrap.css">
     <link rel="stylesheet" href="/stylesheets/header.css">
-    <link rel="stylesheet" href="/stylesheets/products_selectedstyle.css">
+    <link rel="stylesheet" href="/stylesheets/board_read.css">
 </head>
 <body>
     <header>
@@ -30,8 +30,13 @@
                     <p><b><%= posts[0].price.toLocaleString() %> 원</b></p>
                 </div>                
                 <% if (login == posts[0].user_id) { %>
-                    <div class="update_post">
-                        <a href="/board/update/<%= posts[0].id %>"><button>수정</button></a>
+                    <div class="button_wrapper">
+                        <div class="update_post">
+                            <a href="/board/update/<%= posts[0].id %>"><button>수정</button></a>
+                        </div>
+                        <div class="delete_post">
+                            <a href="/board/delete/<%= posts[0].id %>"><button>삭제</button></a>
+                        </div>
                     </div>
                 <% } %>
             </div>

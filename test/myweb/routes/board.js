@@ -62,9 +62,24 @@ router.post('/update/:id', upload.single('uploadfile'), (req, res) => {
         res.redirect('/board/' + req.params.id);
     })
 });
+// 게시글 삭제
+router.get('/delete/:id', (req, res) => {
+    if(!req.session.logined) {
+        res.send('<script>location.href="/login"</script>');
+    }
+    client.query('SELECT * FROM posts WHERE id=?', [req.params.id], (err, results) => {
+        if(req.session.userid == results[0].user_id){
+            client.query('DELETE FROM posts WHERE user_id=? AND id=?', [req.session.userid, req.params.id], (err, results) =>{
+                res.send('<script>alert("삭제되었습니다."); location.href="/board"</script>');
+            })
+        } else {
+            res.send('<script>alert("잘못된 접근입니다."); location.href="/board"</script>');
+        }
+    })
+})
 // 게시물 조회
 router.get('/:id', function(req, res, next) {
-    console.log('loginid', req);
+    // console.log('loginid', req);
     client.query('select * from posts WHERE id=?', [req.params.id], (err, results) => {
         res.render('read', {logined: req.session.logined, login:req.session.userid, posts: results, moment: moment, postid : req.params.id})
     })

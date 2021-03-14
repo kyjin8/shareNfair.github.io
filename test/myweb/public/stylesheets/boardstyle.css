@@ -32,7 +32,8 @@
 }
 .product hr{
     transform: translateY(1500%);
-    border: 1px solid rgb(211, 211, 211);
+    /* border: 1px solid rgb(211, 211, 211); */
+    color:rgb(184, 184, 184);
 }
 
 /* 글쓰기 버튼 */

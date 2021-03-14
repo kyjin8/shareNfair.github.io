@@ -11,7 +11,7 @@ router.get('/',(req,res,next)=>{
     req.session.destroy(function () {
         req.session
     })
-    res.send('<script>history.back();</script>');
+    res.send('<script>location.href="/";</script>');
 })
 
 module.exports = router;
