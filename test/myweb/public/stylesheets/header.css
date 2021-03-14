@@ -7,6 +7,7 @@
 }
 .logo{
 	float:left;
+	margin-top: -3px;
 }
 .logo img{
     width: 250px;
@@ -21,10 +22,11 @@
 }
 .top-menu ul li{
 	display: inline-block;
-	padding: 5px 15px 0px 15px;
+	margin-top: -3px;
+	padding: 0px 15px 0px 15px;
 }
 .top-menu ul li a{
-	font-size: 1.1em;
+	font-size: 1em;
 	color: #fff;
 	text-decoration: none;
 	text-transform: uppercase;

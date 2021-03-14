@@ -5,7 +5,7 @@
     flex-direction: column;
 }
 .product{
-    padding: 5vh;
+    padding: 0 10vw 5vh;
 }
 .product img{
     display: inline-block;
@@ -18,6 +18,7 @@
 .product_text_wrapper{
     display: inline-block;
     padding-left: 5vw;
+    transform: translateY(25%);
 }
 .product_text{
     margin-bottom: 1vh;

@@ -4,7 +4,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>글수정 : SHARE & FAIR</title>
-    <link rel="stylesheet" href="/stylesheets/bootstrap.css">
+    <!-- <link rel="stylesheet" href="/stylesheets/bootstrap.css"> -->
+    <link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
     <link rel="stylesheet" href="/stylesheets/header.css">
     <link rel="stylesheet" href="/stylesheets/crudstyle.css">
 </head>
@@ -17,17 +18,25 @@
         <form action="/board/update/<%= posts[0].id %>" method="POST" enctype="multipart/form-data">
             <div class="load_image">
                 <img src="/images/uploaded/<%=posts[0].img%>"><br>
-                <label class="btn_file">파일 추가<input type="file" name="uploadfile" class="uploadfile loadfile" style="display:none;" required/></label>
+                <label class="btn_file">파일 추가<input type="file" name="uploadfile" class="uploadfile loadfile" style="display:none;"/></label>
             </div>
             <hr>
-            <p><div class="small_title title_text">제목</div><input class="small_context title_box" type="text" name="title" placeholder="제목" autocomplete="off" value="<%= posts[0].title %>" required></p>
+            <div class="small_wrapper">
+                <div class="small_title title_text">제목</div><input class="small_context title_box" type="text" name="title"
+                    placeholder="제목" autocomplete="off" value="<%= posts[0].title %>" required>
+            </div>
             <hr>
-            <p><div class="small_title price">가격</div><input class="small_context price_box" type="number" name="price" placeholder="￦ 가격을 입력하세요." autocomplete="off" 
-                value="<%= posts[0].price %>" required></p>
+            <div class="small_wrapper">
+                <div class="small_title price">가격</div><input class="small_context price_box" type="number" name="price"
+                    placeholder="￦ 가격을 입력하세요." autocomplete="off" value="<%= posts[0].price %>" required>
+            </div>
             <hr>
-            <p><div class="small_title desc_text">내용</div><textarea class="small_context description_box" name="description" placeholder="게시글 내용을 작성해주세요." autocomplete="off" required><%= posts[0].description %></textarea></p>
+            <div class="small_wrapper">
+                <div class="small_title desc_text">내용</div><textarea class="small_context description_box" name="description"
+                    placeholder="게시글 내용을 작성해주세요." autocomplete="off" required><%= posts[0].description %></textarea>
+            </div>
             <hr>
-            <p><input class="submit_btn" type="submit" value="완료"></p>
+            <input class="submit_btn" type="submit" value="완료">
         </form>
     </div>
 </body>

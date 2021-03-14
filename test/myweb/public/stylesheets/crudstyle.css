@@ -1,26 +1,29 @@
-/* create */
+/* create 페이지 */
 .cu_box{
-    padding: 5vw;
+    padding: 13vh 10vw;
 }
-.cu_box p{
-    display: block;
-    padding: 3px;
+.small_wrapper{
+    padding: 2vh;
 }
 .uploadfile{
     padding-top: 5vh;
 }
 .small_title{
     display: inline-block;
+    position: absolute;
     padding: 0 10px;
+    width: 10%;
 }
-.desc_text{
-    /* padding-top: -100px; */
+/* .desc_text{
+    padding-top: -100px;
     transform: translateY(-915%);
-}
+} */
 .small_context{
     display: inline-block;
+    position: relative;
+    left: 10%;
     width: 84vw;
-    padding: 3px;
+    padding: 0 3px;
 }
 textarea{
     min-height: 200px;
@@ -39,7 +42,7 @@ input, textarea{
     vertical-align: middle;
     font-weight: 700;
 }
-/* update */
+/* update 페이지 */
 .load_image {
     /* text-align: center; */
     margin-bottom: 5vh;
@@ -69,7 +72,7 @@ input, textarea{
     background-color: #fa593c;
 }
 
-/* read */
+/* read 페이지 */
 .products_box{
     padding: 60px;
     display: flex;
@@ -94,29 +97,31 @@ input, textarea{
 .product_title, .product_price{
     font-size: 20px;
 }
-.product_created{
+.product_created, .product_deal{
     font-size: 85%;
     color: gray;
 }
 .product_description{
+    position: relative;
     white-space: pre;
     line-height: 2;
 }
 .product_description p{
+    position: absolute;
+    top: 25%;
     margin: 0;
-    transform: translateY(-50%);
 }
-.product_price{
-    transform: translateY(-200%);
+.product_deal{
+    margin-bottom: 3vh;
 }
-/* 수정, 삭제 버튼 */
+/* 수정, 삭제 버튼 // 가격제안 버튼 */
 .button_wrapper{
     display: block;
 }
-.update_post, .delete_post{
+.update_post, .delete_post, .deal_btn{
     display: inline-block;
 }
-.update_post button{
+.update_post button, .deal_btn{
     display: inline-block;
     padding: .5em .75em;
     color: #fff;
@@ -130,8 +135,9 @@ input, textarea{
     -webkit-transition: background-color 0.2s;
     transition: background-color 0.2s;
 }
-.update_post button:hover{
+.update_post button:hover, .deal_btn:hover{
     background-color: #fa593c;
+    color: #fff;
 }
 .delete_post button{
     display: inline-block;
@@ -149,4 +155,28 @@ input, textarea{
 }
 .delete_post button:hover{
     background-color: #5f5f5f;
+}
+/* 모달 */
+.modal_wrapper{
+    display: block;
+    position: relative;
+}
+.modal_head{
+    display: inline-block;
+    padding: 3px 10px;
+    position: absolute;
+    width: 15%;
+}
+.modal_context{
+    display: inline-block;
+    position: relative;
+    left: 15%;
+    width: 84%;
+    padding: 3px;
+    min-height: 30px;
+}
+.description_box{
+    display: block;
+    min-height: 100px;
+    margin-bottom: -15px;
 }
