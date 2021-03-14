@@ -30,7 +30,7 @@ router.get('/', function(req, res, next) {
 router.get('/create', (req, res) => {
     if(!req.session.logined) res.send('<script>location.href="/login"</script>');
     client.query('SELECT * FROM posts ORDER BY id', (err, results) => {
-        res.render('create', {logined: req.session.logined, posts: results});
+        res.render('board_create', {logined: req.session.logined, posts: results});
     })
 });
 router.post('/create', upload.single('uploadfile'), (req, res) => {
@@ -48,7 +48,7 @@ router.get('/update/:id', (req, res) => {
     if(!req.session.logined) res.send('<script>location.href="/login"</script>');
     client.query('SELECT * FROM posts WHERE id=?',[req.params.id], (err, results) => {
         if(err) console.log(err);
-        res.render('update', {logined: req.session.logined, posts: results});
+        res.render('board_update', {logined: req.session.logined, posts: results});
     })
 });
 router.post('/update/:id', upload.single('uploadfile'), (req, res) => {
@@ -87,7 +87,7 @@ router.get('/delete/:id', (req, res) => {
 router.get('/:id', function(req, res, next) {
     // console.log('loginid', req);
     client.query('select * from posts WHERE id=?', [req.params.id], (err, results) => {
-        res.render('read', {logined: req.session.logined, login:req.session.userid, posts: results, moment: moment, postid : req.params.id})
+        res.render('board_read', {logined: req.session.logined, login:req.session.userid, posts: results, moment: moment, postid : req.params.id})
     })
 });
 
