@@ -68,6 +68,12 @@ body{
 	text-decoration: none;
 	text-transform: uppercase;
 }
+.top-menu ul li p{
+	font-size: 1.1em;
+	color: #fff;
+	text-decoration: none;
+	transform: translateY(-20%);
+}
 .top-menu ul li a:hover {
 	color: #ef664d;
 }

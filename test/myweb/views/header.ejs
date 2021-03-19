@@ -8,10 +8,13 @@
                 <span class="menu"> </span>
                 <ul>
                     <nav class="cl-effect-5">
+                        <% if (logined) { %>
+                            <li><p><%= login %>님</p></li>
+                        <% } %>
                         <li><a class="active" href="/"><span data-hover="메인">메인</span></a></li>
                         <li><a href="/board" class="scroll"><span data-hover="판매글"><span>판매글</span></a></li>
-                        <li><a href="#notice" class="scroll"><span data-hover="알림">알림</span></a></li>
-                        <li><a href="#contact" class="scroll"><span data-hover="정보">정보</span></a></li>
+                        <li><a href="#search" class="scroll"><span data-hover="검색">검색</span></a></li>
+                        <li><a href="/users" class="scroll"><span data-hover="MY&nbsp;S&F">MY&nbsp;S&F</span></a></li>
                         <% if (!logined) { %>
                             <li><a href="/login" class="scroll"><span data-hover="로그인">로그인</span></a></li>
                         <% } else { %>

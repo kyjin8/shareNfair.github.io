@@ -12,11 +12,10 @@ var indexRouter = require('./routes/index');
 var loginRouter = require('./routes/login');
 var logoutRouter = require('./routes/logout');
 var signupRouter = require('./routes/signup');
-// var productsRouter = require('./routes/products');
-// var createRouter = require('./routes/create');
 var updateRouter = require('./routes/update');
 var usersRouter = require('./routes/users');
 var boardRouter = require('./routes/board');
+var chatRouter = require('./routes/chat');
 
 var app = express();
 
@@ -39,6 +38,7 @@ app.use('/signup', signupRouter);
 app.use('/update/:id', updateRouter);
 app.use('/users', usersRouter);
 app.use('/board', boardRouter);
+app.use('/chat', chatRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

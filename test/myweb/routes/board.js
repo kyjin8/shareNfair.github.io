@@ -2,7 +2,6 @@ var express = require('express');
 var router = express.Router();
 const session = require('./session');
 const client = require('./mysql');
-const { route } = require('./session');
 const moment = require('moment');
 const path = require('path');
 const multer = require('multer');
@@ -36,9 +35,13 @@ router.get('/create', (req, res) => {
 router.post('/create', upload.single('uploadfile'), (req, res) => {
     const body = req.body;
     const file = req.file.filename;
-    client.query('insert into posts(title, price, description, user_id, img) values(?, ?, ?, ?, ?)', [body.title, body.price, body.description, req.session.userid, file], () => {
-        res.redirect('/board');
-    })
+    client.query(
+        "insert into posts(title, price, description, user_id, img) values(?, ?, ?, ?, ?)",
+        [body.title, body.price, body.description, req.session.userid, file],
+        () => {
+            res.redirect("/board");
+        }
+    );
 })
 // 게시글 수정
 router.get('/update/:id', (req, res) => {
@@ -93,7 +96,7 @@ router.get('/delete/:id', (req, res) => {
 router.post('/deal/:id', (req, res) => {
     if(!req.session.logined) res.send('<script>location.href="/login"</script>');
     console.log('body, userid, postid :', req.body, req.session.userid, req.params.id);
-    client.query('INSERT INTO deals(postid, userid, deal_price, deal_comment) VALUES(?, ?, ?, ?)', [req.params.id, req.session.userid, req.body.price, req.body.comment], (err) => {
+    client.query('INSERT INTO deals(postid, userid, deal_price, deal_comment, post_userid) VALUES(?, ?, ?, ?, ?)', [req.params.id, req.session.userid, req.body.price, req.body.comment, req.body.post_userid], (err) => {
         res.send('<script>location.href="/board/' + req.params.id + '";</script>');
     })
 })
@@ -106,11 +109,26 @@ router.post('/deal_re/:id', (req, res) => {
 })
 // 게시물 조회
 router.get('/:id', (req, res) => {
-    client.query('SELECT * FROM deals WHERE postid = ? AND userid =? ', [req.params.id, req.session.userid], (err, results) => {	
-        const isdealed = results;
-        console.log('가격제안 데이터 유무체크', isdealed, isdealed.length);
-        client.query('SELECT * FROM posts WHERE id=?', [req.params.id], (err, results) => {
-            res.render('board_read', {logined: req.session.logined, login:req.session.userid, posts: results, moment: moment, isdealed: isdealed})
+    client.query('SELECT * FROM posts WHERE user_id=? AND id=?', [req.session.userid, req.params.id], (err, results) =>{
+        const post_master = results;
+        client.query('SELECT * FROM deals WHERE postid = ?', [req.params.id], (err, results) => {	
+            const isdealed_post = results;
+            console.log('가격제안 데이터 유무체크', isdealed_post, isdealed_post.length);
+            client.query('SELECT * FROM deals WHERE postid = ? AND userid = ?', [req.params.id, req.session.userid], (err, results) => {
+                const isdealed_user = results;
+                console.log('로그인한 사용자가 가격제안 했는지 체크', isdealed_user);
+                client.query('SELECT * FROM posts WHERE id=?', [req.params.id], (err, results) => {
+                    res.render("board_read", {
+                        logined: req.session.logined,
+                        login: req.session.userid,
+                        posts: results,
+                        moment: moment,
+                        isdealed_user: isdealed_user,
+                        isdealed_post: isdealed_post,
+                        post_master: post_master
+                    });
+                })
+            })
         })
     })
 });

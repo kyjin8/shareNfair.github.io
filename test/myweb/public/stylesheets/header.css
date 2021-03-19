@@ -1,6 +1,9 @@
 .header{
+	position: fixed;
+	width: 100%;
     background-color: black;
     min-height: 80px;
+	z-index: 100;
 }
 .header-top {
 	padding-top: 2em;
@@ -19,6 +22,12 @@
 }
 .top-menu{
 	float:right;
+	transform: translateY(4px);
+}
+@media (max-width: 996px) {
+    .top-menu{
+        display: none;
+    }
 }
 .top-menu ul li{
 	display: inline-block;
@@ -30,6 +39,12 @@
 	color: #fff;
 	text-decoration: none;
 	text-transform: uppercase;
+}
+.top-menu ul li p{
+	font-size: 1em;
+	color: #fff;
+	text-decoration: none;
+	transform: translateY(-30%);
 }
 .top-menu ul li a:hover {
 	color: #ef664d;

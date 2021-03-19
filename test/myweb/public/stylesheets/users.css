@@ -1,0 +1,110 @@
+.view_box{
+  display: block;
+  padding: 20vh 10vw;
+  text-align: center;
+}
+.view_box a{
+  color: #333;
+  text-decoration: none;
+}
+.view_box h4{
+  padding: 1.5rem;
+  font-weight: 700;
+}
+/* 프로필 관리 섹션 */
+.profile_box{
+  display: block;
+  /* background-color: #f77e68; */
+  width: 81%;
+  height: 250px;
+  border: 1px solid gray;
+  border-radius: 15px;
+  margin: 0 auto;
+}
+.profile_wrapper{
+  position: relative;
+  margin-top: 3vh;
+}
+.profile_little_box{
+  position: absolute;
+  margin: 0.3vw;
+}
+.profile_img_box{
+  display: inline-block;
+  /* background-color: #f77e68; */
+  left: 1%;
+  width: 25%;
+  height: 200px;
+  cursor: pointer;
+}
+.profile_img_wrapper {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  overflow: hidden;
+}
+.profile_img_wrapper img{
+  width: 100%;
+  height: 100%;
+}
+.profile_text_box{
+  display: inline-block;
+  background-color: aliceblue;
+  padding: 5rem;
+  left: 28%;
+  width: 70%;
+  height: 200px;
+}
+.profile_text_box span{
+  float: left;
+}
+.edit_profile{
+  /* display: inline-block; */
+  position: absolute;
+  bottom: 0;
+  transform: translateX(240%);
+  z-index: 1;
+  padding: .5em .75em;
+  color: #fff;
+  font-size: inherit;
+  line-height: normal;
+  vertical-align: middle;
+  background-color: #f77e68;
+  cursor: pointer;
+  border: none;
+  border-radius: .25em;
+  -webkit-transition: background-color 0.2s;
+  transition: background-color 0.2s;
+}
+/* 판매, 가격제안, 채팅 내역 */
+.little_box{
+  display: inline-block;
+  min-width: 253px;
+  width: 200px;
+  height: 300px;
+  border: 1px solid gray;
+  border-radius: 15px;
+  padding-top: 4rem;
+  margin: 7vh 3vh;
+}
+.img_wrapper{
+  width: 8rem;
+  height: 8rem;
+  padding: 2rem;
+  text-align: center;
+  background-color: rgb(255, 244, 244);
+  border: 3px solid #f77e68;
+  border-radius: 50%;
+  margin: 0 auto;
+}
+.sales_img, .chatting_img{
+  /* display: block; */
+  width: 100%;
+}
+.deals_img{
+  width: 110%;
+  transform: translate3d(-2px, -2px, 0);
+}
+#uploadfile{
+  display: none;
+}

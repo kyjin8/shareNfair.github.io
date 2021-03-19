@@ -1,6 +1,7 @@
 /* products */
 .products_box{
-    padding: 60px;
+    width: 100%;
+    padding: 130px 60px;
     display: flex;
     flex-direction: column;
 }
@@ -19,6 +20,7 @@
     display: inline-block;
     padding-left: 5vw;
     transform: translateY(25%);
+    width: 70%;
 }
 .product_text{
     margin-bottom: 1vh;
@@ -58,4 +60,18 @@
 .create_post img{
     width: 40px;
     transform: translate3d(5%, 15%, 0);
+}
+.submit_btn{
+    display: inline-block;
+    padding: .5em .75em;
+    color: #fff;
+    font-size: inherit;
+    line-height: normal;
+    vertical-align: middle;
+    background-color: #f77e68;
+    cursor: pointer;
+    border: none;
+    border-radius: .25em;
+    -webkit-transition: background-color 0.2s;
+    transition: background-color 0.2s;
 }

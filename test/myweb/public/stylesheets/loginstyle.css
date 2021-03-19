@@ -8,6 +8,8 @@ body {
 }
 a {
   color: #00B7FF;
+  text-decoration: none;
+  font-weight: 700;
 }
 button {
   cursor: pointer;
@@ -25,7 +27,7 @@ button {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	margin-top: 21px;
+	margin-top: 9vh;
 }
 .main-container .main-wrap{
 	width:768px;
@@ -34,15 +36,15 @@ button {
 	display:flex;	
 	flex-direction: column;
 	align-items: center;
-  padding-top:25px;
+	padding-top:25px;
 }
 .main-container .main-wrap .logo-wrap img
 {
-	height: 100px;
+	height: 150px;
 }
 .main-container .main-wrap .logo-wrap img:last-child{
-  width: 300px;
-  height: 100%;
+	width: 350px;
+	height: 100%;
 }
 
 .login-input-section-wrap{
@@ -58,18 +60,18 @@ button {
 	background: white;
 }
 .password-wrap{
-	margin-top: 13px;
+	margin-top: 2vh;
 }
 .login-input-wrap input{
 	border: none;
-  outline: none;
+	outline: none;
 	width: 430px;
 	margin: 10px 0 0 10px;
 	font-size: 14px;
 	height: 30px;
 }
 .login-button-wrap {
-	padding-top: 13px;
+	padding-top: 2vh;
 }
 .login-button-wrap button{
 	width: 465px;
@@ -78,77 +80,17 @@ button {
 	background: rgb(250, 109, 133);
 	color: white;
 	border: solid 1px pink;
-  outline: none;
+	outline: none;
 }
-.login-stay-sign-in{
-	width: 465px;
-	height: 52px;
-	display: flex;
-	font-size: 15px;
-	color: #4e4e4e;
-	align-items: center;
-	/* justify-content: flex-start; */
-	border-bottom: solid 1px var(--border-gray-color);
-}
-.login-stay-sign-in i{
-	font-size: 25px;
-	color: #9ba1a3;
-}
-.login-stay-sign-in span{
-	padding-left: 5px;
-	line-height: 25px;
-}
-
-.Easy-sign-in-wrap{
+.Sign-up-wrap{
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	padding-top: 40px;
-}
-.Easy-sign-in-wrap h2{
 	font-size: 20px;
 }
-.Easy-sign-in-wrap .sign-button-list
-{
-	padding-top:25px;
-	list-style: none;
-	width: 465px;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-}
-.Easy-sign-in-wrap .sign-button-list li{
-	padding-bottom: 10px;
-}
-.Easy-sign-in-wrap .sign-button-list li button{
-	width: 465px;
-	height: 56px;
-	border: solid 1px var(--border-gray-color);
-	text-align: left;
-	background: white;
-  outline: none;
-}
-.Easy-sign-in-wrap .sign-button-list li button i{
-	padding-left: 15px;
-	font-size: 20px;
-}
-.fa-qrcode
-{
-	color:rgb(255, 155, 172);
-}
-.fa-line{
-	color:var(--naver-green-color);
-}
-.fa-facebook-square
-{
-	color:#4064ac;
-}
-.Easy-sign-in-wrap .sign-button-list li button span{
-	padding-left: 20px;
-	font-size: 18px;
-}
-.Easy-sign-in-wrap .forget-msg{
-	color:var(--font-color);
-	font-size: 14px;
-	padding-top: 10px;
+.Sign-up-wrap h4{
+	font-size: 15px;
+	padding-bottom: 2vh;
+	font-weight: 400;
 }

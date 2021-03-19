@@ -10,6 +10,8 @@
     <link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
     <link rel="stylesheet" href="/stylesheets/header.css">
     <link rel="stylesheet" href="/stylesheets/crudstyle.css">
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
 </head>
 <body>
     <header>
@@ -32,10 +34,62 @@
                 <div class="product_text product_description">
                     <p><%= posts[0].description %></p>
                 </div>
-                <% if (isdealed.length != 0) { %>
-                <div class="product_text product_deal">
-                    <p>가격제안 <%= isdealed.length %>개</p>
-                </div>     
+                <% if (isdealed_post.length != 0) { %>
+                    <div class="product_text product_deal">
+                        <p>가격제안 <%= isdealed_post.length %>개</p>
+                    </div>
+                    <!-- 가격제안 목록 조회 -->
+                    <button type="button" class="btn deal_btn" data-bs-toggle="modal" data-bs-target="#exampleModal1">
+                        가격제안 목록
+                    </button>
+                    
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">가격제안 목록</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <% isdealed_post.forEach((item, index) => { %>
+                                        <div class="modal_wrapper list_wrapper">
+                                            <!-- <div class="modal_head price">가격</div> -->
+                                            <div class="modal_left">
+                                                <p style="font-size:25px; margin-bottom: 0.5rem;"><b><%= item.deal_price.toLocaleString() %>원</b></p>
+                                                <p><%= item.userid %> 님</p>
+                                            </div>
+                                            <% if(post_master[0] || isdealed_user[0]) { %>
+                                                <span>
+                                                    <button type="submit" class="submit_btn" style="transform: translateY(50%)">채팅</button>
+                                                </span>
+                                                <script> $('.submit_btn').click(function(){
+                                                    $.ajax({
+                                                        url: `/chat`,
+                                                        dataType: 'json',
+                                                        type: 'POST',
+                                                        success: (result) => {
+                                                            if(result['result'] == true){
+                                                            window.open('/chat/<%= posts[0].id %>/<%= item.post_userid %>/<%= item.userid %>', '_blank', 'width=500 height=700');
+                                                        }}
+                                                    }
+                                                    )
+                                                }) </script>
+                                            <% } %>
+                                        </div>
+                                        <% if(index != isdealed_post.length-1) { %>
+                                        <hr>
+                                        <% } 
+                                    }) %>
+                                </div>
+                                <div class="modal-footer">
+                                    <!-- <button type="button" class="btn deal_btn">확인</button>
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button> -->
+                                    <button type="button" class="btn submit_btn" data-bs-dismiss="modal">확인</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 <% } %>
                 <!-- 로그인 시: 수정,삭제 / 가격제안 -->
                 <% if (logined) { %>   
@@ -49,19 +103,22 @@
                             </div>
                         </div>
                     <% } else { %>
-                        <% if (!isdealed[0]) { %>
-                            <button type="button" class="btn btn-lg deal_btn" id="openModalBtn">
+                        <% if (!isdealed_user[0]) { %>
+                            <button type="button" class="btn deal_btn" data-bs-toggle="modal" data-bs-target="#exampleModal2">
                                 가격 제안하기
                             </button>
-                            <!-- 모달 영역 -->
-                            <div id="modalBox" class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                                <div class="modal-dialog" role="document">
+                            
+                            <!-- Modal -->
+                            <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h4 class="modal-title" id="myModalLabel">가격 제안하기</h4>
+                                            <h5 class="modal-title" id="exampleModalLabel">가격 제안하기</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
                                         <form action="/board/deal/<%= posts[0].id %>" method="POST">
                                             <div class="modal-body">
+                                                <input type="hidden" name="post_userid" value="<%= posts[0].user_id %>">
                                                 <div class="modal_wrapper">
                                                     <div class="modal_head price">가격</div>
                                                     <input class="modal_context price_box" type="number" name="price" placeholder="￦ 제안할 가격을 입력하세요."
@@ -75,66 +132,48 @@
                                                 </div>
                                             </div>
                                             <div class="modal-footer">
-                                                <button type="submit" class="btn deal_btn">확인</button>
-                                                <button type="button" class="btn btn-default" id="closeModalBtn">취소</button>
+                                                <button type="submit" class="btn submit_btn">확인</button>
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
                                             </div>
                                         </form>
                                     </div>
                                 </div>
                             </div>
-                            <script>
-                                // 모달 버튼에 이벤트를 건다.
-                                $('#openModalBtn').on('click', function () {
-                                    $('#modalBox').modal('show');
-                                });
-                                // 모달 안의 취소 버튼에 이벤트를 건다.
-                                $('#closeModalBtn').on('click', function () {
-                                    $('#modalBox').modal('hide');
-                                });
-                            </script>
                         <% } else { %>
-                            <button type="button" class="btn btn-lg deal_btn" id="openModalBtn">
+                            <button type="button" class="btn deal_btn" data-bs-toggle="modal" data-bs-target="#exampleModal2">
                                 가격제안 수정하기
                             </button>
-                            <!-- 모달 영역 -->
-                            <div id="modalBox" class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                                <div class="modal-dialog" role="document">
+                            
+                            <!-- Modal -->
+                            <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h4 class="modal-title" id="myModalLabel">가격 제안하기</h4>
+                                            <h5 class="modal-title" id="exampleModalLabel">가격 제안하기</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
                                         <form action="/board/deal_re/<%= posts[0].id %>" method="POST">
                                             <div class="modal-body">
                                                 <div class="modal_wrapper">
                                                     <div class="modal_head price">가격</div>
                                                     <input class="modal_context price_box" type="number" name="price" placeholder="￦ 제안할 가격을 입력하세요."
-                                                        autocomplete="off" value="<%= isdealed.deal_price %>" required>
+                                                        autocomplete="off" value="<%= isdealed_user[0].deal_price %>" required>
                                                 </div>
                                                 <hr>
                                                 <div class="modal_wrapper">
                                                     <div class="modal_head modal_desc">내용</div>
                                                     <textarea class="modal_context description_box" name="comment" placeholder="전달하고 싶은 내용이 있다면 적어주세요."
-                                                        autocomplete="off" required><%= isdealed.deal_comment %></textarea>
+                                                        autocomplete="off" required><%= isdealed_user[0].deal_comment %></textarea>
                                                 </div>
                                             </div>
                                             <div class="modal-footer">
-                                                <button type="submit" class="btn deal_btn">확인</button>
-                                                <button type="button" class="btn btn-default" id="closeModalBtn">취소</button>
+                                                <button type="submit" class="btn btn-primary submit_btn">확인</button>
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
                                             </div>
                                         </form>
                                     </div>
                                 </div>
                             </div>
-                            <script>
-                                // 모달 버튼에 이벤트를 건다.
-                                $('#openModalBtn').on('click', function () {
-                                    $('#modalBox').modal('show');
-                                });
-                                // 모달 안의 취소 버튼에 이벤트를 건다.
-                                $('#closeModalBtn').on('click', function () {
-                                    $('#modalBox').modal('hide');
-                                });
-                            </script>
                         <% } %>
                     <% } %>
                 <% } %>

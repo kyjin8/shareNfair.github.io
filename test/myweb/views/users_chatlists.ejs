@@ -1,0 +1,56 @@
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>채팅목록 : SHARE & FAIR</title>
+    <script src="/javascripts/jquery.min.js"></script>
+    <link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
+    <link rel="stylesheet" href="/stylesheets/header.css">
+    <link rel="stylesheet" href="/stylesheets/boardstyle.css">
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
+</head>
+</head>
+<body>
+    <header>
+        <% include header.ejs %>
+    </header>
+    <div class="products_box">
+        <% chatlists.forEach((item, index) => { %>
+            <div class="product">
+                <a href="/board/<%= item.postid %>"><img src="/images/uploaded/<%= item.img %>"></a>
+                <div class="product_text_wrapper">
+                    <div class="product_text product_title">
+                        <%= item.title %>
+                    </div>
+                    <div class="product_text product_price">
+                        <p><b>
+                                <%= item.price.toLocaleString() %> 원
+                            </b></p>
+                    </div>
+                    <div class="product_text">
+                        <%= item.postuser==login ? item.dealuser : item.postuser %> 님과의 채팅
+                    </div>
+                </div>
+                <span>
+                    <button type="submit" class="submit_btn" style="transform: translateY(-50%)">채팅 보기</button>
+                </span>
+                <script> $('.submit_btn').click(function(){
+                    $.ajax({
+                        url: `/chat`,
+                        dataType: 'json',
+                        type: 'POST',
+                        success: (result) => {
+                            if(result['result'] == true){
+                            window.open('/chat/<%= item.postid %>/<%= item.postuser %>/<%= item.dealuser %>', '_blank', 'width=500 height=700');
+                        }}
+                    }
+                    )
+                }) </script>
+                <hr>
+            </div>
+        <% }) %>
+    </div>
+</body>
+</html>

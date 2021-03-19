@@ -1,0 +1,39 @@
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>채팅 : SHARE & FAIR</title>
+    <link rel="stylesheet" href="/stylesheets/chat.css">
+    <!-- <link rel="stylesheet" href="/stylesheets/bootstrap.min.css"> -->
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
+</head>
+<body>
+    <div class="wrapper">
+        <div class="user-container">
+            <label for="nickname">대화명</label><%= login %>
+            <input type="hidden" id="nickname" value="<%= login %>">
+        </div>
+        <input type="hidden" id="postuser" value="<%= postuser %>">
+        <input type="hidden" id="dealuser" value="<%= dealuser %>">
+        <input type="hidden" id="postid" value="<%= postid %>">
+        <input type="hidden" id="listNo" value="<%= listNo %>">
+        <input type="hidden" id="postuser_img" value="<%= postuser_img %>">
+        <input type="hidden" id="dealuser_img" value="<%= dealuser_img %>">
+        <div class="display-container">
+            <ul class="chatting-list">
+
+            </ul>
+        </div>
+        <div class="input-container">
+            <span>
+                <input type="text" class="chatting-input">
+                <button class="send-button">전송</button>
+            </span>
+        </div>
+    </div>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/javascripts/chat.js"></script>
+</body>
+</html>
