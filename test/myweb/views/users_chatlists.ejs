@@ -30,24 +30,29 @@
                             </b></p>
                     </div>
                     <div class="product_text">
-                        <%= item.postuser==login ? item.dealuser : item.postuser %> 님과의 채팅
+                        <%= item.postuser==login ? item.dealusername : item.postusername %> 님과의 채팅
                     </div>
                 </div>
                 <span>
                     <button type="submit" class="submit_btn" style="transform: translateY(-50%)">채팅 보기</button>
                 </span>
-                <script> $('.submit_btn').click(function(){
-                    $.ajax({
-                        url: `/chat`,
-                        dataType: 'json',
-                        type: 'POST',
-                        success: (result) => {
-                            if(result['result'] == true){
-                            window.open('/chat/<%= item.postid %>/<%= item.postuser %>/<%= item.dealuser %>', '_blank', 'width=500 height=700');
-                        }}
+                <script> 
+                    $(document).ready(function () { $('.submit_btn').bind('click', function () { doSomething(); }); });
+                    let doSomething = function () {
+                        $('.submit_btn').unbind('click');
+                        $.ajax({
+                            url: `/chat`,
+                            dataType: 'json',
+                            type: 'POST',
+                            success: (result) => {
+                                if (result['result'] == true) {
+                                    window.open('/chat/<%= item.postid %>/<%= item.postuser %>/<%= item.dealuser %>', '_blank', 'width=500 height=700');
+                                }
+                            }
+                        }
+                        )
                     }
-                    )
-                }) </script>
+                </script>
                 <hr>
             </div>
         <% }) %>

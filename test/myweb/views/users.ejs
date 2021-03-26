@@ -8,6 +8,7 @@
     <title>MY SHARE & FAIR</title>
     <link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
     <link rel="stylesheet" href="/stylesheets/header.css">
+    <link rel="stylesheet" href="/stylesheets/footer.css">
     <link rel="stylesheet" href="/stylesheets/users.css">
     <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
     <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
@@ -18,25 +19,25 @@
     </header>
     <div class="view_box">
         <div class="profile_box">
-            <div class="profile_wrapper">
-                <form action="/users/users_editimg" class="profile_little_box profile_img_box" method="POST" enctype="multipart/form-data">
-                    <label class="profile_img_wrapper" for="uploadfile">
-                        <!-- <div class="profile_img_wrapper"> -->
-                            <% if (userimg) { %>
-                            <img class="profile_img" src="/images/uploaded/<%= userimg %>">
-                            <!-- <img class="edit_img" src="/images/default_image.PNG"> -->
-                            <% } else { %>
-                            <img class="profile_img" src="/images/default_image.PNG">
-                            <% } %>
-                        <!-- </div> -->
+            <form action="/users/users_editimg" class="profile_wrapper" method="POST" enctype="multipart/form-data">
+                <div class="edit_img_wrapper">
+                    <label class="profile_img_box" for="uploadfile">
+                        <% if (userimg) { %>
+                            <img id ="previewProfile" class="profile_img" src="/images/uploaded/<%= userimg %>">
+                        <% } else { %>
+                            <img id ="previewProfile" class="profile_img" src="/images/default_image.PNG">
+                        <% } %>
                     </label>
-                    <input type="file" name="uploadfile" id="uploadfile" class="uploadfile" value="" required/>
-                    <button type="submit" class="edit_profile">프로필 수정 반영하기</button>
-                </form>
-                <div class="profile_little_box profile_text_box">
-                    <span><%= login %> 님</span>
+                    <input type="file" name="uploadfile" id="uploadfile" onchange="readImg(this)" required/>
+                    <% if (userimg) { %>    <!-- 프로필이미지 편집용 이미지 -->
+                        <img class="edit_img" src="/images/default_image.PNG">
+                    <% } %>
                 </div>
-            </div>
+                <div class="profile_text_box">
+                    <span><%= username %> 님</span>
+                    <button type="submit" class="edit_profile">프로필 수정 반영하기</button>
+                </div>
+            </form>
         </div>
         <div class="little_box my_sales">
             <a href="/users/users_sales">
@@ -63,5 +64,7 @@
             </a>
         </div>
     </div>
+    <% include footer.ejs %>
+    <script src="/javascripts/readImg.js"></script>
 </body>
 </html>

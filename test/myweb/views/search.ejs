@@ -7,12 +7,101 @@
     <link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
     <link rel="stylesheet" href="/stylesheets/header.css">
     <link rel="stylesheet" href="/stylesheets/boardstyle.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
     <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
     <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
+    <script src="/javascripts/jquery.min.js"></script>
 </head>
 <body>
     <header>
         <% include header.ejs %>
     </header>
+    <div class="search_wrapper">
+        <div class="input_holder">
+            <form action="/search/search_process" method="POST">
+                <% if (!input) { %>
+                    <input type="text" class="search_input" name="search_input" placeholder="검색어를 입력하세요.">
+                <% } else { %>
+                    <input type="text" class="search_input" name="search_input" placeholder="<%= input %>">
+                <% } %>
+                <button class="search_icon"><span></span></button>
+            </form>
+        </div>
+    </div>
+    <% if (posts) { %>
+        <div class="products_box">
+        <!-- 페이징 -->
+        <nav class="page_nav">
+            <% 
+                let offset = 2;
+                let previousBtnEnabled = currentPage>1;
+                let nextBtnEnabled = currentPage<maxPage;
+            %>
+            <ul class="pagination pagination-sm justify-content-center align-items-center h-100 mb-0">
+                <li class="page-item <%= previousBtnEnabled?'':'disabled' %>">
+                    <% if (input) { %>
+                        <a class="page-link" href="/search/search_process/<%= currentPage-1 %>/<%=input%>" <%= previousBtnEnabled?'':'tabindex=-1' %>>«</a>
+                    <% } else { %>
+                        <a class="page-link" href="/search/search_process/<%= currentPage-1 %>" <%= previousBtnEnabled?'':'tabindex=-1' %>>«</a>
+                    <% } %>
+                </li>
+                <% for(i=1;i<=maxPage;i++){ %>
+                    <% if(i==1 || i==maxPage || (i>=currentPage-offset && i<=currentPage+offset)){ %>
+                        <% if (input) { %>
+                            <li class="page-item <%= currentPage==i?'active':'' %>"><a class="page-link" href="/search/search_process/<%= i %>/<%= input %>"> <%= i %> </a></li>
+                        <% } else { %>
+                            <li class="page-item <%= currentPage==i?'active':'' %>"><a class="page-link" href="/search/search_process/<%= i %>"> <%= i %> </a></li>
+                        <% } %>
+                    <% } else if(i==2 || i==maxPage-1){ %>
+                    <li><a class="page-link">...</a></li>
+                    <% } %>
+                <% } %>
+                <li class="page-item <%= nextBtnEnabled?'':'disabled' %>">
+                    <% if (input) { %>
+                        <a class="page-link" href="/search/search_process/<%= currentPage+1 %>/<%= input %>" <%= nextBtnEnabled?'':'tabindex=-1' %>>»</a>
+                    <% } else { %>
+                        <a class="page-link" href="/search/search_process/<%= currentPage+1 %>" <%= nextBtnEnabled?'':'tabindex=-1' %>>»</a>
+                    <% } %>
+                </li>
+            </ul>
+        </nav>
+            <% posts.forEach((item, index) => { %>
+                <div class="product">
+                    <a href="/board/<%= item.id %>"><img src="/images/uploaded/<%= item.img %>"></a>
+                        <div class="product_text_wrapper">
+                            <div class="product_text product_title">
+                                <%= item.title %>
+                            </div>
+                            <div class="product_text product_price">
+                                <p><b><%= item.price.toLocaleString() %> 원</b></p>
+                            </div>
+                            <div class="product_text product_created">
+                                <% moment.locale('ko') %>
+                                <p><%= moment(item.created).startOf('sec').fromNow() %></p>
+                            </div>
+                        </div>
+                    </a>
+                    <hr>
+                </div>
+            <% }) %>
+        </div>
+        <!-- 탑 버튼 -->
+        <a href="#" class="btn_gotop">
+            <img src="/images/to-top2.png" style="width:40px"> 
+        </a>
+        <script>
+            $(window).scroll(function(){
+                if ($(this).scrollTop() > 300){
+                    $('.btn_gotop').show();
+                } else{
+                    $('.btn_gotop').hide();
+                }
+            });
+            $('.btn_gotop').click(function(){
+                $('html, body').animate({scrollTop:0},0);
+                return false;
+            });
+        </script>
+    <% } %>
 </body>
 </html>

@@ -7,15 +7,59 @@
     <!-- <link rel="stylesheet" href="/stylesheets/bootstrap.css"> -->
     <link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
     <link rel="stylesheet" href="/stylesheets/header.css">
+    <link rel="stylesheet" href="/stylesheets/footer.css">
     <link rel="stylesheet" href="/stylesheets/boardstyle.css">
     <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
     <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
+    <script src="/javascripts/jquery.min.js"></script>
 </head>
 <body>
     <header>
         <% include header.ejs %>
     </header>
     <div class="products_box">
+        <!-- 소제목 -->
+        <% if (users == 'sales') { %>
+            <h3>판매 내역</h3>
+        <% } else if (users == 'deals') { %>
+            <h3>가격제안 내역</h3>
+        <% } %>
+        <!-- 페이징 -->
+        <nav class="page_nav">
+            <% 
+                let offset = 2;
+                let previousBtnEnabled = currentPage>1;
+                let nextBtnEnabled = currentPage<maxPage;
+            %>
+            <ul class="pagination pagination-sm justify-content-center align-items-center h-100 mb-0">
+                <li class="page-item <%= previousBtnEnabled?'':'disabled' %>">
+                <% if (users == 'sales') { %>
+                    <a class="page-link" href="/users/users_sales?page=<%= currentPage-1 %>" <%= previousBtnEnabled?'':'tabindex=-1' %>>«</a>
+                <% } else if (users == 'deals') { %>
+                    <a class="page-link" href="/users/users_deals?page=<%= currentPage-1 %>" <%= previousBtnEnabled?'':'tabindex=-1' %>>«</a>
+                <% } else { %> 
+                    <a class="page-link" href="/board?page=<%= currentPage-1 %>" <%= previousBtnEnabled?'':'tabindex=-1' %>>«</a>
+                <% } %>
+                </li>
+                <% for(i=1;i<=maxPage;i++){ %>
+                    <% if(i==1 || i==maxPage || (i>=currentPage-offset && i<=currentPage+offset)){ %>
+                        <% if (users == 'sales') { %>
+                            <li class="page-item <%= currentPage==i?'active':'' %>"><a class="page-link" href="/users/users_sales?page=<%= i %>"> <%= i %> </a></li>
+                        <% } else if (users == 'deals') { %>
+                            <li class="page-item <%= currentPage==i?'active':'' %>"><a class="page-link" href="/users/users_deals?page=<%= i %>"> <%= i %> </a></li>
+                        <% } else { %> 
+                            <li class="page-item <%= currentPage==i?'active':'' %>"><a class="page-link" href="/board?page=<%= i %>"> <%= i %> </a></li>
+                        <% } %>
+                    <% } else if(i==2 || i==maxPage-1){ %>
+                    <li><a class="page-link">...</a></li>
+                    <% } %>
+                <% } %>
+                <li class="page-item <%= nextBtnEnabled?'':'disabled' %>">
+                    <a class="page-link" href="/board?page=<%= currentPage+1 %>" <%= nextBtnEnabled?'':'tabindex=-1' %>>»</a>
+                </li>
+            </ul>
+        </nav>
+        <!-- 게시글 목록 -->
         <% posts.forEach((item, index) => { %>
             <div class="product">
                 <a href="/board/<%= item.id %>"><img src="/images/uploaded/<%= item.img %>"></a>
@@ -36,12 +80,47 @@
             </div>
         <% }) %>
     </div>
-    <% if (logined) { %>
+    <!-- 글쓰기 버튼, 탑 버튼 -->
+    <% if (logined && !users) { %>
         <div class="create_post">
             <a href="/board/create"><div class="button">
                 <img src="/images/create_post.png">
             </div></a>
         </div>
+        <a href="#" class="btn_gotop_logined">
+            <img src="/images/to-top2.png" style="width:40px"> 
+        </a>
+        <script>
+            $(window).scroll(function(){
+                if ($(this).scrollTop() > 300){
+                    $('.btn_gotop_logined').show();
+                } else{
+                    $('.btn_gotop_logined').hide();
+                }
+            });
+            $('.btn_gotop').click(function(){
+                $('html, body').animate({scrollTop:0},0);
+                return false;
+            });
+        </script>
+    <% } else { %>
+        <a href="#" class="btn_gotop">
+            <img src="/images/to-top2.png" style="width:40px"> 
+        </a>
+        <script>
+            $(window).scroll(function(){
+                if ($(this).scrollTop() > 300){
+                    $('.btn_gotop').show();
+                } else{
+                    $('.btn_gotop').hide();
+                }
+            });
+            $('.btn_gotop').click(function(){
+                $('html, body').animate({scrollTop:0},0);
+                return false;
+            });
+        </script>
     <% } %>
+    <% include footer.ejs %>
 </body>
 </html>

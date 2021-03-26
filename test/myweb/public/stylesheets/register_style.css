@@ -55,6 +55,10 @@ table + .btn_center {padding-top: 50px;}
 .btn_center button{cursor: pointer;}
 label + .btn_center { padding: 65px 0 0;}
 .btn_type1 { display: inline-block; width: 120px; height:45px; background: rgb(250, 109, 133); text-align: center; line-height: 45px; color:#fff; font-size: 13px;}
+.btn_type1:disabled{
+    cursor: default;
+    background-color: gray;
+}
 .btn_type2 {position: relative; top: 1px; display: inline-block; width: 120px; height:45px; background: #fff; text-align: center; line-height: 45px; color:rgb(250, 109, 133); font-size: 13px;border: 1px solid rgb(250, 109, 133);}
 .btn_type3 {background-color: #fff; padding: 0 10px; display: inline-block; min-width: 102px;height: 38px;line-height: 38px;text-align: center; border: 2px solid #aaa;box-sizing: border-box;vertical-align: middle;box-sizing: border-box;}
 /* --------------------------- */

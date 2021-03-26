@@ -1,12 +1,26 @@
 /* create 페이지 */
 .cu_box{
-    padding: 20vh 10vw;
+    padding: 20vh 15vw;
+}
+.cu_box h2{
+    padding: 2vh;
+}
+.img_wrapper{
+    width: 300px;
+    margin: 0 auto;
+}
+.img_wrapper img{
+    display: block;
+    width: 300px;
+    margin: 5vh 0 0 0;
+    /* border: 1px solid gray; */
+    border-radius: 10px;
 }
 .small_wrapper{
     padding: 2vh;
 }
 .uploadfile{
-    padding-top: 5vh;
+    padding-top: 2vh;
 }
 .small_title{
     display: inline-block;
@@ -32,28 +46,8 @@ input, textarea{
     border: none;
     outline: none;
 }
-/* .submit_btn{
-    background-color: #f77e68;
-    color: white;
-    padding: .5em .75em;
-    border-radius: .25em;
-    font-size: inherit;
-    line-height: normal;
-    vertical-align: middle;
-    font-weight: 700;
-} */
+
 /* update 페이지 */
-.load_image {
-    /* text-align: center; */
-    margin-bottom: 5vh;
-}
-.load_image img{
-    display: block;
-    width: 300px;
-    margin: 5vh 0 0 0;
-    border: 1px solid gray;
-    border-radius: 10px;
-}
 .btn_file{
     display: inline-block;
     padding: .5em .75em;
@@ -85,9 +79,29 @@ input, textarea{
 }
 .product img{
     width: 100%;
+    /* height: 100%; */
     margin-bottom: 1vh;
     border: 1px solid rgb(184, 184, 184);
     border-radius: 5px;
+}
+.postuserProfile{
+    display: block;
+    margin: 10% 3%;
+}
+.postuser_img{
+    display: inline-block;
+    width: 120px;
+    height: 120px;
+}
+.postuser_img img{
+    border-radius: 50%;
+    height: 100%;
+    margin: 0;
+}
+.postuser_name{
+    display: inline-block;
+    padding-left: 5%;
+    font-weight: 700;
 }
 .product_text_wrapper{
     margin-top: 5vh;
@@ -103,13 +117,13 @@ input, textarea{
     color: gray;
 }
 .product_description{
-    position: relative;
+    /* position: relative; */
     white-space: pre;
     line-height: 2;
 }
 .product_description p{
-    position: absolute;
-    top: 25%;
+    /* position: absolute; */
+    /* top: 25%; */
     margin: 0;
 }
 .product_deal{
@@ -163,6 +177,10 @@ input, textarea{
     display: inline-block;
     position: relative;
     width: 50%;
+}
+.modal_bottom{
+    font-size: 14px;
+    color: gray;
 }
 .modal_wrapper{
     display: block;

@@ -10,11 +10,12 @@
   <title>SHARE & FAIR</title>
   <link rel="stylesheet" href="/stylesheets/mainstyle.css">
   <link rel="stylesheet" href="/stylesheets/poststyle.css">
+  <link rel="stylesheet" href="/stylesheets/footer.css">
+  <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
+  <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
   <script src="/javascripts/jquery.min.js"></script>
   <script type="text/javascript" src="/javascripts/move-top.js"></script>
   <script type="text/javascript" src="/javascripts/easing.js"></script>
-  <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
-  <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
 </head>
 
 <body>
@@ -29,11 +30,11 @@
           <ul>
             <nav class="cl-effect-5">
               <% if (logined) { %>
-              <li><p><%= login %>님 환영합니다.</p></li>
+              <li><p><%= username %>님 환영합니다.</p></li>
               <% } %>
               <li><a class="active" href="/"><span data-hover="메인">메인</span></a></li>
               <li><a href="/board" class="scroll"><span data-hover="판매글"><span>판매글</span></a></li>
-              <li><a href="#search" class="scroll"><span data-hover="검색">검색</span></a></li>
+              <li><a href="/search" class="scroll"><span data-hover="검색">검색</span></a></li>
               <li><a href="/users" class="scroll"><span data-hover="MY&nbsp;S&F">MY&nbsp;S&F</span></a></li>
               <% if (!logined) { %>
                 <li><a href="/login" class="scroll"><span data-hover="로그인">로그인</span></a></li>
@@ -114,11 +115,47 @@
     </div>
   </div>
   <% if (logined) { %>
-  <div class="create_post">
-    <a href="/board/create"><div class="button">
-      <img src="/images/create_post.png">
-    </div></a>
-  </div>
-  <% } %>
+    <div class="create_post">
+      <a href="/board/create">
+        <div class="button">
+          <img src="/images/create_post.png">
+        </div>
+      </a>
+    </div>
+    <a href="#" class="btn_gotop_logined">
+      <img src="/images/to-top2.png" style="width:40px">
+    </a>
+    <script>
+      $(window).scroll(function () {
+        if ($(this).scrollTop() > 300) {
+          $('.btn_gotop_logined').show();
+        } else {
+          $('.btn_gotop_logined').hide();
+        }
+      });
+      $('.btn_gotop').click(function () {
+        $('html, body').animate({ scrollTop: 0 }, 0);
+        return false;
+      });
+    </script>
+    <% } else { %>
+      <a href="#" class="btn_gotop">
+        <img src="/images/to-top2.png" style="width:40px">
+      </a>
+      <script>
+        $(window).scroll(function () {
+          if ($(this).scrollTop() > 300) {
+            $('.btn_gotop').show();
+          } else {
+            $('.btn_gotop').hide();
+          }
+        });
+        $('.btn_gotop').click(function () {
+          $('html, body').animate({ scrollTop: 0 }, 0);
+          return false;
+        });
+      </script>
+    <% } %>
+    <% include footer.ejs %>
 </body>
 </html>

@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="/stylesheets/crudstyle.css">
     <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
     <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
+    <script src="/javascripts/jquery.min.js"></script>
 </head>
 <body>
     <header>
@@ -18,10 +19,12 @@
     <div class="cu_box">
         <h2>거래글 수정</h2>
         <form action="/board/update/<%= posts[0].id %>" method="POST" enctype="multipart/form-data">
-            <div class="load_image">
-                <img src="/images/uploaded/<%=posts[0].img%>"><br>
-                <label class="btn_file">파일 추가<input type="file" name="uploadfile" class="uploadfile loadfile" style="display:none;"/></label>
+            <div class="img_wrapper">
+                <img id="previewProfile" src="/images/uploaded/<%=posts[0].img%>"><br>
             </div>
+                <label class="btn_file">파일 추가
+                    <input type="file" name="uploadfile" class="uploadfile loadfile" onchange="readImg(this)" style="display:none;"/>
+                </label>
             <hr>
             <div class="small_wrapper">
                 <div class="small_title title_text">제목</div><input class="small_context title_box" type="text" name="title"
@@ -29,7 +32,7 @@
             </div>
             <hr>
             <div class="small_wrapper">
-                <div class="small_title price">가격</div><input class="small_context price_box" type="number" name="price"
+                <div class="small_title price">가격</div><input class="small_context price_box" type="number" min="0" name="price"
                     placeholder="￦ 가격을 입력하세요." autocomplete="off" value="<%= posts[0].price %>" required>
             </div>
             <hr>
@@ -41,5 +44,6 @@
             <input class="submit_btn" type="submit" value="완료">
         </form>
     </div>
+    <script src="/javascripts/readImg.js"></script>
 </body>
 </html>

@@ -12,10 +12,10 @@ var indexRouter = require('./routes/index');
 var loginRouter = require('./routes/login');
 var logoutRouter = require('./routes/logout');
 var signupRouter = require('./routes/signup');
-var updateRouter = require('./routes/update');
 var usersRouter = require('./routes/users');
 var boardRouter = require('./routes/board');
 var chatRouter = require('./routes/chat');
+var searchRouter = require('./routes/search');
 
 var app = express();
 
@@ -33,12 +33,10 @@ app.use('/', indexRouter);
 app.use('/login', loginRouter);
 app.use('/logout', logoutRouter);
 app.use('/signup', signupRouter);
-// app.use('/create', createRouter);
-// app.use('/products', productsRouter);
-app.use('/update/:id', updateRouter);
 app.use('/users', usersRouter);
 app.use('/board', boardRouter);
 app.use('/chat', chatRouter);
+app.use('/search', searchRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

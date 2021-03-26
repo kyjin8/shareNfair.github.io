@@ -14,55 +14,69 @@
 /* 프로필 관리 섹션 */
 .profile_box{
   display: block;
+  position: relative;
   /* background-color: #f77e68; */
-  width: 81%;
+  width: 65%;
   height: 250px;
   border: 1px solid gray;
   border-radius: 15px;
   margin: 0 auto;
+  padding: 3vh;
 }
 .profile_wrapper{
   position: relative;
-  margin-top: 3vh;
-}
-.profile_little_box{
-  position: absolute;
-  margin: 0.3vw;
-}
-.profile_img_box{
-  display: inline-block;
-  /* background-color: #f77e68; */
-  left: 1%;
-  width: 25%;
-  height: 200px;
-  cursor: pointer;
-}
-.profile_img_wrapper {
-  width: 100%;
   height: 100%;
+  margin: 0;
+}
+.edit_img_wrapper{
+  display: inline-block;
+  position: absolute;
+  left: 1%;
+  width: 200px;
+  height: 100%;
+}
+.profile_img_box {
   border-radius: 50%;
+  width: 200px;
+  height: 100%;
+  /* background-color: #f77e68; */
+  cursor: pointer;
   overflow: hidden;
 }
-.profile_img_wrapper img{
+.profile_img_box img{
   width: 100%;
   height: 100%;
+}
+#uploadfile{
+  display: none;
+}
+.edit_img {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 60px;
+  height: 30%;
+  border-radius: 50%;
 }
 .profile_text_box{
   display: inline-block;
-  background-color: aliceblue;
+  position: absolute;
+  /* background-color: aliceblue; */
   padding: 5rem;
   left: 28%;
   width: 70%;
-  height: 200px;
+  /* height: 200px; */
+  height: 100%;
 }
 .profile_text_box span{
   float: left;
 }
 .edit_profile{
   /* display: inline-block; */
-  position: absolute;
-  bottom: 0;
-  transform: translateX(240%);
+  /* position: absolute; */
+  /* bottom: 0; */
+  float: right;
+  /* transform: translateX(240%); */
   z-index: 1;
   padding: .5em .75em;
   color: #fff;
@@ -104,7 +118,4 @@
 .deals_img{
   width: 110%;
   transform: translate3d(-2px, -2px, 0);
-}
-#uploadfile{
-  display: none;
 }

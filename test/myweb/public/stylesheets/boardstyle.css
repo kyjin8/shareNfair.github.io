@@ -1,12 +1,21 @@
 /* products */
 .products_box{
     width: 100%;
-    padding: 130px 60px;
+    padding: 80px 60px;
     display: flex;
     flex-direction: column;
 }
+.products_box h3{
+    margin: 0 10vw 8vh;
+    font-weight: 700;
+}
+.page_nav{
+    margin: 0 auto;
+    margin-bottom: 5%;
+    width: 100%;
+}
 .product{
-    padding: 0 10vw 5vh;
+    margin: 0 10vw 5vh;
 }
 .product img{
     display: inline-block;
@@ -39,26 +48,107 @@
     color:rgb(184, 184, 184);
 }
 
+/* 검색 페이지 */
+.search_wrapper {
+    display: block;
+    height: 120px;
+    position: relative;
+    top: 10%;
+}
+.search_wrapper .input_holder {    
+    position: relative;
+    height: 70px;
+    width: 450px;
+    margin: 0 auto;
+    overflow: hidden;
+    background: rgba(0,0,0,0.6);
+    border-radius: 50px;
+    /* transition: all 0.3s ease-in-out; */
+}
+.search_wrapper .input_holder .search_input {
+    position: absolute;
+    width: 85%;
+    height: 50px;
+    padding: 0 0 0 35px;
+    top: 0;
+    left: 0;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-family:"Open Sans", Arial, Verdana;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 20px;
+    color:#FFF;
+    transform: translate(0, 12px);
+}
+.search_wrapper .input_holder .search_input::placeholder{
+    color: #fff;
+}
+.search_wrapper .input_holder .search_icon {
+    position: relative;
+    width: 50px;
+    height: 50px;
+    padding: 0px;
+    margin: 10px;
+    border: none;
+    border-radius: 30px;
+    background: #FFF;
+    outline: none;
+    z-index: 2;
+    float: right;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+.search_wrapper .input_holder .search_icon span {
+    display: inline-block;
+    position: relative;
+    width: 22px;
+    height: 22px;
+    vertical-align: middle;
+    transform: rotate(-45deg);
+}
+.search_wrapper .input_holder .search_icon span::before, .search_wrapper .input_holder .search_icon span::after {
+    position: absolute; 
+    content: '';
+}
+.search_wrapper .input_holder .search_icon span::before {
+    width: 4px;
+    height: 13px;
+    left: 9px;
+    top: 16px;
+    border-radius: 2px;
+    background: #FE5F55;
+}
+.search_wrapper .input_holder .search_icon span::after {
+    width: 20px;
+    height: 20px;
+    left: 0px;
+    top: -3px;
+    border-radius: 16px;
+    border: 4px solid #FE5F55;
+}
+
 /* 글쓰기 버튼 */
 .create_post {
     position: fixed;
-    right: 0;
-    bottom: 0;
-    padding: 3%;
+    right: 3.2%;
+    bottom: 30px;
 }
 .create_post .button{
-    width: 80px;
-    height: 80px;
-    background-color: rgb(255, 218, 224);
+    width: 69.5px;
+    height: 69.5px;
+    background-color: rgb(255 230 218);
     border-radius: 50%;
     text-align: center;
     align-items: center;
     line-height: 50px;
     padding: 10px;
-    box-shadow: 0px 3px 10px gray;
+    border: 1px solid #ccc;
+    box-shadow: 0px 0.5px 10px #c1c1c1;
 }
 .create_post img{
-    width: 40px;
+    width: 33px;
     transform: translate3d(5%, 15%, 0);
 }
 .submit_btn{
@@ -74,4 +164,48 @@
     border-radius: .25em;
     -webkit-transition: background-color 0.2s;
     transition: background-color 0.2s;
+}
+
+/* toTop 버튼 */
+.btn_gotop {
+    display: none;
+	position: fixed;
+	bottom: 45px;
+	right: 3.4%;
+	z-index: 999;
+	border: 1px solid #ccc;
+	outline: none;
+	background-color: white;
+	color: #333;
+	cursor: pointer;
+	padding: 20px 12px;
+	border-radius: 100%;
+    box-shadow: 0px 0.5px 10px #dcdcdc;
+}
+.btn_gotop_logined {
+    display: none;
+	position: fixed;
+	bottom: 130px;
+	right: 3.4%;
+	z-index: 999;
+	border: 1px solid #ccc;
+	outline: none;
+	background-color: white;
+	color: #333;
+	cursor: pointer;
+	padding: 20px 12px;
+	border-radius: 100%;
+    box-shadow: 0px 0.5px 10px #dcdcdc;
+}
+/* input:-internal-autofill-selected{
+    background-color: black!important;
+} */
+input:-webkit-autofill,
+    input:-webkit-autofill:hover,
+    input:-webkit-autofill:focus,
+    input:-webkit-autofill:active {
+    transition: background-color 5000s ease-in-out 0s;
+    -webkit-transition: background-color 9999s ease-out;
+    -webkit-box-shadow: 0 0 0px 1000px rgb(102 102 102) inset !important;
+    -webkit-text-fill-color: white !important;
 }

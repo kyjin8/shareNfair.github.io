@@ -7,6 +7,7 @@ const { route } = require('./session');
 const path = require('path');
 const multer = require('multer');
 const fs = require('fs');
+const { DEFAULT_MIN_VERSION } = require('tls');
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -20,52 +21,84 @@ const upload = multer({ storage: storage });
 
 router.use(session)
 
-router.get('/', (req, res) => {
-  if(!req.session.logined) {
+router.get("/", (req, res) => {
+  if (!req.session.logined) {
     res.send('<script>location.href="/login"</script>');
   } else {
-  client.query('SELECT * FROM users WHERE userid=?', [req.session.userid], (err, results) => {
-    let userimg;
-    if(results[0].userimg){
-      userimg = results[0].userimg;
-    } else {
-      userimg = '';
-    }
-    console.log('userimg', userimg);
-    client.query('SELECT * FROM posts ORDER BY created DESC, id DESC', (err, results) => {
-      res.render("users", {
-        logined: req.session.logined,
-        login: req.session.userid,
-        userimg: userimg,
-        posts: results,
-        moment: moment,
-      });
-    })
-  })
-}
+    client.query("SELECT * FROM users WHERE userid=?", [req.session.userid], (err, results) => {
+        let userimg;
+        if (results[0].userimg) {
+          userimg = results[0].userimg;
+        } else {
+          userimg = "";
+        }
+        console.log("userimg", userimg);
+        client.query(
+          "SELECT * FROM posts ORDER BY created DESC, id DESC",
+          (err, results) => {
+            res.render("users", {
+              logined: req.session.logined,
+              login: req.session.userid,
+              username: req.session.username,
+              userimg: userimg,
+              posts: results,
+              moment: moment,
+            });
+          }
+        );
+      }
+    );
+  }
 });
 
 router.get('/users_sales', (req, res) => {
   if (!req.session.logined) res.send('<script>location.href="/login"</script>');
-  client.query(
-    "SELECT * FROM deals LEFT JOIN posts On deals.postid = posts.id WHERE posts.user_id = ? ORDER BY deal_price DESC",
-    [req.session.userid],
-    (err, results) => {
-      console.log("posts", results);
-      res.render("board", {logined: req.session.logined, login: req.session.userid, posts: results, moment: moment});
-    }
-  );
+  const limit = 5;
+  let page = Math.max(1, parseInt(req.query.page));
+  page = isNaN(page) ? 1 : page;
+  let skip = (page-1) * limit;
+
+  client.query('SELECT * FROM posts WHERE user_id=?', [req.session.userid], (err, cnt) => {
+    let count = cnt.length - 1;
+    client.query("SELECT * FROM posts WHERE user_id = ? ORDER BY id DESC LIMIT ?, ?", [req.session.userid, skip, limit], (err, results) => {
+      // console.log("posts", results);
+      let maxPage = Math.ceil(count/limit);
+      res.render("board", {
+        logined: req.session.logined,
+        login: req.session.userid,
+        username: req.session.username,
+        posts: results,
+        moment: moment,
+        users: "sales",
+        currentPage: page,
+        maxPage: maxPage
+      });
+    });
+  })
 })
 
 router.get('/users_deals', (req, res) => {
-  client.query('SELECT * FROM deals LEFT JOIN posts ON deals.postid = posts.id WHERE deals.userid=? ORDER BY created, posts.id DESC', 
-  [req.session.userid], (err, results) => {
-    res.render("board", {
-      logined: req.session.logined,
-      login: req.session.userid,
-      posts: results,
-      moment: moment,
-    });
+  if (!req.session.logined) res.send('<script>location.href="/login"</script>');
+  const limit = 5;
+  let page = Math.max(1, parseInt(req.query.page));
+  page = isNaN(page) ? 1 : page;
+  let skip = (page-1) * limit;
+
+  client.query('SELECT * FROM deals LEFT JOIN posts ON deals.postid = posts.id WHERE deals.userid=?', [req.session.userid], (err, cnt) => {
+    let count = cnt.length - 1;
+    client.query('SELECT * FROM deals LEFT JOIN posts ON deals.postid = posts.id WHERE deals.userid=? ORDER BY created, posts.id DESC LIMIT ?, ?', [req.session.userid, skip, limit], (err, results) => {
+      let maxPage = Math.ceil(count/limit);
+      res.render("board", {
+        logined: req.session.logined,
+        login: req.session.userid,
+        username: req.session.username,
+        posts: results,
+        moment: moment,
+        users: 'deals',
+        currentPage: page,
+        maxPage: maxPage
+      });
+    })
   })
 });
 
@@ -81,8 +114,9 @@ router.get('/users_chatting', (req, res) => {
     res.render("users_chatlists", {
       logined: req.session.logined,
       login: req.session.userid,
+      username: req.session.username,
       chatlists: results,
-      moment: moment,
+      moment: moment
     });
   })
 });

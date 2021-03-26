@@ -35,6 +35,7 @@ router.get("/:id/:postuser/:dealuser", (req, res) => {
                         res.render("chat", {
                             logined: req.session.logined,
                             login: req.session.userid,
+                            username: req.session.username,
                             postuser: req.params.postuser,
                             dealuser: req.params.dealuser,
                             postid: req.params.id,
@@ -48,6 +49,7 @@ router.get("/:id/:postuser/:dealuser", (req, res) => {
                             res.render("chat", {
                                 logined: req.session.logined,
                                 login: req.session.userid,
+                                username: req.session.username,
                                 postuser: req.params.postuser,
                                 dealuser: req.params.dealuser,
                                 postid: req.params.id,

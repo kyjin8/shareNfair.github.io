@@ -20,16 +20,46 @@ const upload = multer({ storage: storage });
 router.use(session);
 
 // 게시글 목록
+// router.get('/', (req, res) => {
+//     client.query('SELECT * FROM posts ORDER BY created DESC, id DESC', (err, results) => {
+//         res.render("board", {
+//           logined: req.session.logined,
+//           login: req.session.userid,
+//           posts: results,
+//           moment: moment,
+//           users: ''
+//         });
+//     })
+// });
 router.get('/', (req, res) => {
-    client.query('SELECT * FROM posts ORDER BY created DESC, id DESC', (err, results) => {
-        res.render('board', {logined: req.session.logined, login:req.session.userid, posts: results, moment: moment})
+    const limit = 5;
+    let page = Math.max(1, parseInt(req.query.page));
+    page = isNaN(page) ? 1 : page;
+    let skip = (page-1) * limit;
+
+    client.query('SELECT * FROM posts', (err, cnt) => {
+        let count = cnt.length - 1;
+        // client.query('SELECT * FROM posts ORDER BY created DESC, id DESC LIMIT ?, ?', [skip, limit], (err, results) => {
+        client.query('SELECT * FROM posts ORDER BY created DESC, id DESC LIMIT ?, ?', [skip, limit], (err, results) => {
+            let maxPage = Math.ceil(count/limit);
+            res.render("board", {
+                logined: req.session.logined,
+                login: req.session.userid,
+                username: req.session.username,
+                posts: results,
+                moment: moment,
+                users: '',
+                currentPage: page,
+                maxPage: maxPage
+            });
+        })
     })
 });
 // 게시글 생성
 router.get('/create', (req, res) => {
     if(!req.session.logined) res.send('<script>location.href="/login"</script>');
     client.query('SELECT * FROM posts ORDER BY id', (err, results) => {
-        res.render('board_create', {logined: req.session.logined, posts: results});
+        res.render('board_create', {logined: req.session.logined, login:req.session.userid, username: req.session.username, posts: results});
     })
 });
 router.post('/create', upload.single('uploadfile'), (req, res) => {
@@ -48,7 +78,7 @@ router.get('/update/:id', (req, res) => {
     if(!req.session.logined) res.send('<script>location.href="/login"</script>');
     client.query('SELECT * FROM posts WHERE id=?',[req.params.id], (err, results) => {
         if(err) console.log(err);
-        res.render('board_update', {logined: req.session.logined, posts: results});
+        res.render('board_update', {logined: req.session.logined, login:req.session.userid, username: req.session.username, posts: results});
     })
 });
 router.post('/update/:id', upload.single('uploadfile'), (req, res) => {
@@ -59,7 +89,7 @@ router.post('/update/:id', upload.single('uploadfile'), (req, res) => {
         const file = req.file.filename;
         client.query('SELECT * FROM posts WHERE id=?', [req.params.id], (err, results) => {
             const pre_img = results[0].img;
-            client.query('UPDATE posts SET title=?, price=?, description=?, img=? WHERE posts.id=?', [body.title, body.price, body.description, file, req.params.id], (err, results) => {            
+            client.query('UPDATE posts SET title=?, price=?, description=?, img=?, created=NOW() WHERE posts.id=?', [body.title, body.price, body.description, file, req.params.id], (err, results) => {            
                 fs.unlink(path.dirname(__dirname) + '/public/images/uploaded/' + pre_img, (err) => {
                     console.error(err);
                 });
@@ -67,7 +97,7 @@ router.post('/update/:id', upload.single('uploadfile'), (req, res) => {
             res.redirect('/board/' + req.params.id);
         })
     } else {       //파일 수정 X
-        client.query('UPDATE posts SET title=?, price=?, description=? WHERE posts.id=?', [body.title, body.price, body.description, req.params.id], (err, results) => {
+        client.query('UPDATE posts SET title=?, price=?, description=?, created=NOW() WHERE posts.id=?', [body.title, body.price, body.description, req.params.id], (err, results) => {
             res.redirect('/board/' + req.params.id);
         })
     }
@@ -108,29 +138,41 @@ router.post('/deal_re/:id', (req, res) => {
     })
 })
 // 게시물 조회
-router.get('/:id', (req, res) => {
-    client.query('SELECT * FROM posts WHERE user_id=? AND id=?', [req.session.userid, req.params.id], (err, results) =>{
-        const post_master = results;
-        client.query('SELECT * FROM deals WHERE postid = ?', [req.params.id], (err, results) => {	
-            const isdealed_post = results;
-            console.log('가격제안 데이터 유무체크', isdealed_post, isdealed_post.length);
-            client.query('SELECT * FROM deals WHERE postid = ? AND userid = ?', [req.params.id, req.session.userid], (err, results) => {
-                const isdealed_user = results;
-                console.log('로그인한 사용자가 가격제안 했는지 체크', isdealed_user);
-                client.query('SELECT * FROM posts WHERE id=?', [req.params.id], (err, results) => {
-                    res.render("board_read", {
-                        logined: req.session.logined,
-                        login: req.session.userid,
-                        posts: results,
-                        moment: moment,
-                        isdealed_user: isdealed_user,
-                        isdealed_post: isdealed_post,
-                        post_master: post_master
-                    });
-                })
+router.get('/:id', (req, res,next) => {
+    client.query('SELECT * FROM deals WHERE postid = ?', [req.params.id], (err, results) => {	
+        const isdealed_post = results;
+        // console.log('가격제안 데이터 유무체크', isdealed_post, isdealed_post.length);
+        client.query('SELECT * FROM deals WHERE postid = ? AND userid = ?', [req.params.id, req.session.userid], (err, results) => {
+            const isdealed_user = results;
+            // console.log('로그인한 사용자가 가격제안 했는지 체크', isdealed_user);
+            client.query('SELECT *, posts.id AS postid FROM posts LEFT JOIN users ON user_id = userid WHERE posts.id=?', [req.params.id], (err, results) => {
+                // console.log('join한 posts 정보', results);
+                if((req.session.userid && (req.session.userid != results[0].user_id)) || !req.session.userid){ //로그인 했고 자기글 아니거나 / 로그인 안 했으면 조회수 업뎃
+                    client.query('UPDATE posts SET hit=hit+1 WHERE id=? ', [req.params.id], ()=>{});
+                }
+                next();
             })
         })
     })
 });
+router.get('/:id', (req, res) => {
+    client.query('SELECT * FROM deals LEFT JOIN users ON deals.userid = users.userid WHERE postid = ?', [req.params.id], (err, results) => {	
+        const isdealed_post = results;
+            client.query('SELECT * FROM deals WHERE postid = ? AND userid = ?', [req.params.id, req.session.userid], (err, results) => {
+                const isdealed_user = results;
+            client.query("SELECT *, posts.id AS postid FROM posts LEFT JOIN users ON user_id = userid WHERE posts.id=?", [req.params.id],(err, results) => {
+                res.render("board_read", {
+                    logined: req.session.logined,
+                    login: req.session.userid,
+                    username: req.session.username,
+                    posts: results,
+                    moment: moment,
+                    isdealed_user: isdealed_user,
+                    isdealed_post: isdealed_post,
+                });
+            });   
+        });
+    });
+})
 
 module.exports = router;

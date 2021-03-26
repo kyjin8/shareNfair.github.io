@@ -68,22 +68,47 @@ function validateTel(tel) {
     let re = /^[0-9]{4}$/;
     return re.test(tel);
 }
-
+$("#inp-id").on("keyup", function() {
 //let idchecking = false;
-function checkid(){
+// function checkid(){
+    console.log('aaaaa');
     let id = $('#inp-id').val();
+    // let idExp = id_pattern.test(id);
     if(id){
         if (!validateId(id)) {
-            alert("아이디는 4~12자 문자열이어야 합니다.")
+            // alert("아이디는 4~12자 문자열이어야 합니다.")
+            $('#id_msg').html("아이디는 4~12자 문자열이어야 합니다.");
+            $("#btn-submit").attr("disabled", true);
             return;
+        } else {
+            $.ajax({
+                url: '/signup/checkID', // 주소, 경로
+                dataType: 'json', // json 형식으로 전송
+                type: 'POST', // post 방식
+                data: { 'data': id }, // 보낼 데이터 
+                success: (result) => { // 데이터를 보내고 나서 받아온 결과값
+                    if(result['result'] == true) { 
+                        $('#id_msg').html("사용 가능");
+        
+                        // if((idBool||pwBool||reEnterBool||emailBool||nameBool||birthBool) == 0) {
+                            $("#btn-submit").attr("disabled", false);
+                        // }
+                    }
+                    else {
+                        $('#id_msg').html("중복");
+                        $("#btn-submit").attr("disabled", true);
+                    }
+                },
+            });
         }
         // url = "checkid.php?id="+id;
         // window.open(url,"chkid","width=300,height=100");
         return;
     }
     //idchecking = true;
-};
+// };
 //console.log(idchecking);
+})
 
 
 $('#form-register').submit(function(e){
